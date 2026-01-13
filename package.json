@@ -84,7 +84,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "drizzle-kit": "0.31.8",
     "knip": "5.80.2",
-    "lefthook": "2.0.14",
+    "lefthook": "2.0.15",
     "typescript": "5.9.3",
     "vite": "7.3.1",
     "vite-tsconfig-paths": "6.0.4"
