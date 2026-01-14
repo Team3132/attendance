@@ -28,7 +28,7 @@
     "@graphql-yoga/subscription": "5.0.5",
     "@hookform/resolvers": "5.2.2",
     "@mui/material": "7.3.7",
-    "@mui/x-date-pickers": "8.24.0",
+    "@mui/x-date-pickers": "8.25.0",
     "@oslojs/crypto": "1.0.1",
     "@oslojs/encoding": "1.1.0",
     "@t3-oss/env-core": "0.13.10",
