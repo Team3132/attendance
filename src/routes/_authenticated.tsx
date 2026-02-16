@@ -40,7 +40,7 @@ const RootContainer = styled(Container)({
 
 function Component() {
   usePartySocket({
-    enabled: typeof Bun !== "undefined",
+    enabled: import.meta.env.PROD,
     host: new URL(env.VITE_URL).host,
     // usePartySocket takes the same arguments as PartySocket.
 
