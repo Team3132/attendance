@@ -20,7 +20,7 @@ const env = createEnv({
     /**
      * Misc
      */
-    GUILD_ID: z.string(),
+    GUILD_ID: z.string().optional(),
 
     /**
      * Calendar stuff
@@ -31,7 +31,7 @@ const env = createEnv({
     /**
      * Roles
      */
-    ADMIN_ROLE_ID: z.string(),
+    ADMIN_ROLE_ID: z.string().optional(),
     TSS_PRERENDERING: z.coerce.boolean(),
     TZ: z.string().default("Australia/Sydney"),
   },

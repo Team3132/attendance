@@ -9,7 +9,8 @@ const authStatusFn = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     return {
       isAuthenticated: !!context.user,
-      isAdmin: context.user?.roles?.includes(env.ADMIN_ROLE_ID) ?? false,
+      isAdmin:
+        env.ADMIN_ROLE_ID && context.user?.roles?.includes(env.ADMIN_ROLE_ID),
     };
   });
 

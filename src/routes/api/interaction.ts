@@ -77,6 +77,7 @@ export const Route = createFileRoute("/api/interaction")({
     handlers: {
       POST: async ({ context: c }) => {
         const { db, interaction, logger } = c;
+        if (!env.GUILD_ID) throw new Error("Guild Id not defined");
         if (
           interaction.member === undefined ||
           interaction.guild_id !== env.GUILD_ID

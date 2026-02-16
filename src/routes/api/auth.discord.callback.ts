@@ -28,6 +28,10 @@ export const Route = createFileRoute("/api/auth/discord/callback")({
     handlers: {
       GET: async ({ context: c, request }) => {
         const { db } = c as unknown as ServerContext;
+        if (!env.GUILD_ID)
+          throw new Error(
+            "No guild id defined in config. Please configure and restart server.",
+          );
         const headers = new Headers({
           Location: env.VITE_URL,
         });

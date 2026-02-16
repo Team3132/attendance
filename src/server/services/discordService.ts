@@ -39,6 +39,7 @@ export const getServerRoles = createServerFn({ method: "GET" })
   .middleware([adminMiddleware])
   .handler(async () => {
     const guildId = env.GUILD_ID;
+    if (!guildId) throw new Error("No guild Id defined.");
     const api = await getDiscordBotAPI();
 
     const [guildRoles, rolesFetchError] = await trytm(
@@ -65,6 +66,7 @@ export const getServerChannels = createServerFn({ method: "GET" })
   .middleware([adminMiddleware])
   .handler(async () => {
     const guildId = env.GUILD_ID;
+    if (!guildId) throw new Error("Guild Id not defined");
     const api = await getDiscordBotAPI();
 
     const [channels, channelFetchError] = await trytm(
@@ -89,7 +91,7 @@ export const getServerChannels = createServerFn({ method: "GET" })
 export const deployCommands = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
   .handler(async () => {
-    if (!env.DISCORD_TOKEN || !env.DISCORD_CLIENT_ID) {
+    if (!env.DISCORD_TOKEN || !env.DISCORD_CLIENT_ID || !env.GUILD_ID) {
       throw new Error("Discord bot not configured!");
     }
 

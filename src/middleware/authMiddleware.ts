@@ -57,7 +57,7 @@ export const adminMiddleware = createMiddleware()
   .server(async ({ context, next }) => {
     const { user } = context;
 
-    if (!user?.roles?.includes(env.ADMIN_ROLE_ID)) {
+    if (!env.ADMIN_ROLE_ID || !user?.roles?.includes(env.ADMIN_ROLE_ID)) {
       throw redirect({
         to: "/error",
         search: {

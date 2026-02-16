@@ -37,6 +37,7 @@ export async function getOutreachTime(
 ): Promise<z.infer<typeof PagedLeaderboardSchema>> {
   const { limit, cursor: page } = OutreachTimeSchema.parse(params);
 
+  if (!env.ADMIN_ROLE_ID) throw new Error("Admin role not defined");
   const { db } = c;
 
   const lastApril25 = getLastApril25();
@@ -86,7 +87,7 @@ export async function getOutreachTime(
         .where(
           and(
             eq(eventParsingRuleTable.isOutreach, true),
-            not(arrayOverlaps(userTable.roles, [env.ADMIN_ROLE_ID])),
+            not(arrayOverlaps(userTable.roles, [env.ADMIN_ROLE_ID as string])),
             isNotNull(rsvpTable.checkinTime),
             isNotNull(rsvpTable.checkoutTime),
             eq(rsvpTable.status, "ATTENDED"),

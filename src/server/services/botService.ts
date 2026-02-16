@@ -46,6 +46,8 @@ const statusToEmoji = (
  */
 export const generateMessage = createServerOnlyFn(
   async (db: DB, eventId: string) => {
+    if (!env.GUILD_ID) throw new Error("Guild Id not defined");
+
     const [eventRSVPs, eventRsvpsError] = await trytm(
       db
         .select({
@@ -125,7 +127,7 @@ export const generateMessage = createServerOnlyFn(
 
     for (const eventRSVP of eventRSVPs) {
       const roleId = roleIds.find((roleId) =>
-        eventRSVP.user.roles?.concat(env.GUILD_ID)?.includes(roleId),
+        eventRSVP.user.roles?.concat(env.GUILD_ID as string)?.includes(roleId),
       );
 
       if (roleId) {
