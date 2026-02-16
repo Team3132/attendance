@@ -71,6 +71,22 @@ jobs:
     outputs:
       version: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+        name: Setup Bun
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install Dependancies
+        run: bun install --frozen-lockfile
+      - name: Build
+        run: bun run build
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -99,6 +115,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          context: .
   deploy:
     name: Deploy Docker Images
     if: needs.release.outputs.published == 'true'

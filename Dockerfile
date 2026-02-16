@@ -17,21 +17,18 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 # copy node_modules from temp directory
 # then copy all (non-ignored) project files into the image
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
-COPY . .
+# FROM base AS prerelease
+# COPY --from=install /temp/dev/node_modules node_modules
+# COPY . .
 
-# [optional] tests & build
-ENV NODE_ENV=production
-RUN bun run build
+# # [optional] tests & build
+# ENV NODE_ENV=production
+# RUN bun run build
 
 # copy production dependencies and source code into final image
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/dist dist
-COPY --from=prerelease /usr/src/app/drizzle drizzle
-COPY --from=prerelease /usr/src/app/server.ts .
-COPY --from=prerelease /usr/src/app/package.json .
+COPY package.json server.ts drizzle dist ./
 
 # run the app
 USER bun
