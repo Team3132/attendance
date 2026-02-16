@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.5
+
+### Patch Changes
+
+- [`84febd4`](https://github.com/Team3132/attendance/commit/84febd43ec0f26a51198ef2b99d29bf8a2d386ff) Thanks [@sebasptsch](https://github.com/sebasptsch)! - add websocket client
+
 ## 6.4.4
 
 ### Patch Changes
