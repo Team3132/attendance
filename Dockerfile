@@ -28,7 +28,9 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 # copy production dependencies and source code into final image
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
-COPY package.json server.ts drizzle dist ./
+COPY package.json server.ts ./
+COPY ./drizzle /usr/src/app/drizzle
+COPY ./dist /usr/src/app/dist
 
 # run the app
 USER bun
