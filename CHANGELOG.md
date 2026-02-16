@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.3
+
+### Patch Changes
+
+- [`4cec9ca`](https://github.com/Team3132/attendance/commit/4cec9cacbe40aa169a22539e4c09c91268065e20) Thanks [@sebasptsch](https://github.com/sebasptsch)! - remove dist dockerignore
+
 ## 6.4.2
 
 ### Patch Changes
