@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.6
+
+### Patch Changes
+
+- [#3362](https://github.com/Team3132/attendance/pull/3362) [`765bd9d`](https://github.com/Team3132/attendance/commit/765bd9d16173178f1584ef4f82b9b64adf189c15) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Update socket connection enablement condition
+
 ## 6.4.5
 
 ### Patch Changes
