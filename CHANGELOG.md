@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.2
+
+### Patch Changes
+
+- [`ba70b0a`](https://github.com/Team3132/attendance/commit/ba70b0a4ba31d97fc0ac3ff6c00547e67f09b13e) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Fix environment variables to allow pre-rendering for SPA mode
+
 ## 6.4.1
 
 ### Patch Changes
