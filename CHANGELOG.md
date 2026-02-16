@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.4
+
+### Patch Changes
+
+- [`c9911d1`](https://github.com/Team3132/attendance/commit/c9911d1a8fe740bda7f45f73663fb7b4bd6eb06a) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix dockerfile
+
 ## 6.4.3
 
 ### Patch Changes
