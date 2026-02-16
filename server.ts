@@ -64,8 +64,7 @@
  */
 
 import path from "node:path";
-import type { BunWebsocketEvents } from "@/server";
-import type { Register } from "@tanstack/react-start";
+import type { ServerContext } from "@/server";
 
 // Configuration
 const SERVER_PORT = Number(process.env.PORT ?? 1420);
@@ -502,6 +501,8 @@ async function initializeStaticRoutes(
   return { routes, loaded, skipped };
 }
 
+type ServerEntryImport = Awaited<typeof import("./src/server")>["default"];
+
 /**
  * Initialize the server
  */
@@ -509,20 +510,10 @@ async function initializeServer() {
   log.header("Starting Production Server");
 
   // Load TanStack Start server handler
-  let handler: {
-    fetch: (
-      request: Request,
-      opts: { context: Partial<Register["server"]["requestContext"]> },
-    ) => Response | Promise<Response>;
-  };
+  let handler: ServerEntryImport;
   try {
     const serverModule = (await import(SERVER_ENTRY_POINT)) as {
-      default: {
-        fetch: (
-          request: Request,
-          opts: { context: Partial<Register["server"]["requestContext"]> },
-        ) => Response | Promise<Response>;
-      };
+      default: ServerEntryImport;
     };
     handler = serverModule.default;
     log.success("TanStack Start application handler initialized");
@@ -537,18 +528,7 @@ async function initializeServer() {
   const server = Bun.serve({
     port: SERVER_PORT,
     idleTimeout: 0, // Disable idle timeout
-    websocket: {
-      data: {} as BunWebsocketEvents,
-      open: (ws) => {
-        ws.data.open?.(ws);
-      },
-      close: (ws, code, reason) => {
-        ws.data.close?.(ws, code, reason);
-      },
-      message: (ws, message) => {
-        ws.data.message?.(ws, message);
-      },
-    },
+    websocket: handler.websocket,
     routes: {
       // Serve static assets (preloaded or on-demand)
       ...routes,
@@ -556,7 +536,9 @@ async function initializeServer() {
       // Fallback to TanStack Start handler for all other routes
       "/*": (req: Request, routeServer) => {
         try {
-          return handler.fetch(req, { context: { server: routeServer } });
+          return handler.fetch(req, {
+            context: { server: routeServer } as ServerContext,
+          });
         } catch (error) {
           log.error(`Server handler error: ${String(error)}`);
           return new Response("Internal Server Error", { status: 500 });

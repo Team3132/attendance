@@ -6,6 +6,7 @@ import type { Server, WebSocketHandler } from "bun";
 import { Cron, scheduledJobs } from "croner";
 import { DateTime } from "luxon";
 import type z from "zod";
+import type { SessionValidationResult } from "./server/auth/session";
 import { type DB, initialiseDatabase } from "./server/drizzle/db";
 import { getKV } from "./server/drizzle/kv";
 import env from "./server/env";
@@ -79,11 +80,13 @@ export type BunWebsocketEvents = Pick<
 >;
 
 export type ServerContext = {
-  server?: Server<BunWebsocketEvents>;
+  server?: Server<WebsocketContext>;
   pubSub: typeof pubSub;
   db: DB;
   kv: ReturnType<typeof getKV>;
 };
+
+export type WebsocketContext = SessionValidationResult;
 
 // This needs to be tanstack router, currently incorrect
 declare module "@tanstack/react-start" {
@@ -95,6 +98,21 @@ declare module "@tanstack/react-start" {
 }
 
 const serverHandler = createServerOnlyFn(handler.fetch);
+
+const websocketHandler: WebSocketHandler<WebsocketContext> = {
+  data: {} as WebsocketContext,
+  message: (ws, message) => {
+    logger.log("Message received from websocket", message);
+    ws.send("Hello from 3132!");
+  },
+  open: (ws) => {
+    logger.log("Websocket connection opened!");
+    ws.send("Hello from server!");
+  },
+  close: (_ws, _code, _reason) => {
+    logger.log("Websocket connection closed!");
+  },
+};
 
 export default {
   fetch(
@@ -110,4 +128,5 @@ export default {
 
     return serverHandler(req, { context });
   },
+  websocket: websocketHandler,
 };

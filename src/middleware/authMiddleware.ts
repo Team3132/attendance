@@ -34,10 +34,7 @@ export const sessionMiddleware = createMiddleware()
     // If there's no session or user, we're not logged in and we should redirect to the login page
     if (!session || !user) {
       throw redirect({
-        to: "/error",
-        search: {
-          message: "You are not logged in",
-        },
+        to: "/login",
       });
     }
 
@@ -59,10 +56,7 @@ export const adminMiddleware = createMiddleware()
 
     if (!env.ADMIN_ROLE_ID || !user?.roles?.includes(env.ADMIN_ROLE_ID)) {
       throw redirect({
-        to: "/error",
-        search: {
-          message: "You are not an admin",
-        },
+        to: "/login",
       });
     }
 

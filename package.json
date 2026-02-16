@@ -53,6 +53,7 @@
     "msgpackr": "1.11.8",
     "nanoid": "5.1.6",
     "nanoid-dictionary": "5.0.0",
+    "partysocket": "^1.1.13",
     "path-to-regexp": "8.3.0",
     "postgres": "3.4.8",
     "react": "19.2.4",
