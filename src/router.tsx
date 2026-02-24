@@ -1,6 +1,9 @@
 import { MutationCache, QueryClient, matchQuery } from "@tanstack/react-query";
 // app/router.tsx
-import { createRouter as createTanStackRouter } from "@tanstack/react-router";
+import {
+  createHashHistory,
+  createRouter as createTanStackRouter,
+} from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import { toaster } from "./components/Toaster";
 import { routeTree } from "./routeTree.gen";
@@ -37,6 +40,8 @@ export function getRouter() {
     context: { queryClient },
     scrollToTopSelectors: ["#main-area"],
     defaultPreload: "intent",
+    history:
+      import.meta.env.SSR || !window.isTauri ? undefined : createHashHistory(),
   });
 
   setupRouterSsrQueryIntegration({

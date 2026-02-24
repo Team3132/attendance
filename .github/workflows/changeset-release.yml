@@ -23,6 +23,7 @@ jobs:
   release:
     name: Release Changeset
     runs-on: ubuntu-latest
+    environment: "Production"
     permissions:
       id-token: write
       contents: write
@@ -33,43 +34,7 @@ jobs:
     outputs:
       published: ${{ steps.changesets.outputs.published }}
       publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v6
-
-      - uses: oven-sh/setup-bun@v2
-        name: Setup Bun
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-
-      - name: Install Dependancies
-        run: bun install --frozen-lockfile
-
-      - name: Create Release Pull Request
-        id: changesets
-        uses: changesets/action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-        with:
-          publish: bun changeset tag
-          createGithubReleases: true
-  publish:
-    name: Publish Docker Images
-    needs: release
-    if: needs.release.outputs.published == 'true'
-    strategy:
-      fail-fast: true
-      matrix:
-        package: ${{ fromJson(needs.release.outputs.publishedPackages) }}
-    permissions:
-      packages: write
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+      notes: ${{ steps.notes.outputs.notes }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6
@@ -86,7 +51,46 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Build
         run: bun run build
+        env:
+          VITE_URL: ${{ secrets.VITE_URL }}
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+        with:
+          publish: bun changeset tag
+          createGithubReleases: true
+      - name: Get Release Notes
+        if: steps.changesets.outputs.published == 'true'
+        id: notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "notes=$(gh release view v${{ fromJson(steps.changesets.outputs.publishedPackages)[0].version }} --json body)" >> $GITHUB_OUTPUT
+      - uses: actions/upload-artifact@v4
+        if: steps.changesets.outputs.published == 'true'
+        with:
+          name: build
+          path: dist
+      
+  publish:
+    name: Publish (Docker)
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
 
+      - uses: actions/download-artifact@v5
+        with:
+          name: build
+      - name: Display structure of downloaded files
+        run: ls -R ./dist
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -105,7 +109,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/team3132/attendance
-          tags: type=semver,pattern={{version}},value=${{ matrix.package.version }}
+          tags: type=semver,pattern={{version}},value=${{ fromJson(needs.release.outputs.publishedPackages)[0].version }}
 
       - name: Build and Push
         uses: docker/build-push-action@v6
@@ -116,6 +120,99 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           context: .
+
+  publish-tauri:
+    if: needs.release.outputs.published == 'true'
+    name: Publish (Tauri)
+    permissions:
+      contents: write
+    needs: release
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest' # for Arm based macs (M1 and above).
+            args: '--target aarch64-apple-darwin'
+          - platform: 'macos-latest' # for Intel based macs.
+            args: '--target x86_64-apple-darwin'
+          - platform: 'ubuntu-22.04'
+            args: ''
+          - platform: 'ubuntu-22.04'
+            args: '--apk'
+            mobile: "android"
+          - platform: 'ubuntu-22.04-arm' # Only available in public repos.
+            args: ''
+          - platform: 'windows-latest'
+            args: ''
+    runs-on: ${{ matrix.platform }}
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        name: Setup Node
+        with:
+          node-version: 24
+      - uses: oven-sh/setup-bun@v2
+        name: Setup Bun
+        with:
+          bun-version: latest
+      - uses: actions/setup-java@v5
+        name: Setup Java
+        if: ${{ matrix.mobile == 'android' }}
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+          cache: "gradle"
+      - name: Setup Android Signing
+        if: ${{ matrix.mobile == 'android' }}
+        run: |
+          cd src-tauri/gen/android
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" > keystore.properties
+          echo "password=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
+          base64 -d <<< "${{ secrets.ANDROID_KEY_BASE64 }}" > $RUNNER_TEMP/keystore.jks
+          echo "storeFile=$RUNNER_TEMP/keystore.jks" >> keystore.properties
+        id: release-notes
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust Cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Install Dependancies
+        run: bun install --frozen-lockfile
+
+      - name: Install System Dependencies (Ubuntu Only)
+        if: matrix.platform == 'ubuntu-22.04' || matrix.platform == 'ubuntu-22.04-arm' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Bump Cargo package version
+        run: |
+          cd src-tauri
+          cargo install cargo-bump
+          cargo-bump bump ${{ fromJson(needs.release.outputs.publishedPackages)[0].version }}
+      
+      - uses: tauri-apps/tauri-action@063c0231f444e55760d98acb9c469b994269d4a5
+        name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'v__VERSION__'
+          releaseBody: ${{ fromJson(needs.release.outputs.notes).body }}
+          releaseDraft: false
+          prerelease: false
+          args: ${{ matrix.args }}
+          mobile: ${{ matrix.mobile }}
   deploy:
     name: Deploy Docker Images
     if: needs.release.outputs.published == 'true'
@@ -127,5 +224,5 @@ jobs:
     secrets: inherit
     uses: ./.github/workflows/deploy.yml
     with:
-      tag: ${{ needs.publish.outputs.version }}
+      tag: ${{ fromJson(needs.release.outputs.publishedPackages)[0].version }}
     

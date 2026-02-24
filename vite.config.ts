@@ -8,13 +8,40 @@ const ReactCompilerConfig = {
   target: "19",
 };
 
+const host = process.env.TAURI_DEV_HOST;
+
 export default defineConfig({
+  base: "",
   build: {
-    sourcemap: "hidden",
+    // sourcemap: "hidden",
+    // minify: false,
+    // target:
+    //   process.env.TAURI_ENV_PLATFORM === "windows" ? "chrome105" : "safari13",
+    // don't minify for debug builds
+    minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
+    // produce sourcemaps for debug builds
+    sourcemap: !!process.env.TAURI_ENV_DEBUG,
   },
   server: {
     port: 1420,
+    // Tauri expects a fixed port, fail if that port is not available
+    strictPort: true,
+    // if the host Tauri is expecting is set, use it
+    host: host || false,
+    hmr: host
+      ? {
+          protocol: "ws",
+          host,
+          port: 1421,
+        }
+      : undefined,
+
+    watch: {
+      // tell vite to ignore watching `src-tauri`
+      ignored: ["**/src-tauri/**"],
+    },
   },
+  envPrefix: ["VITE_", "TAURI_ENV_"],
   plugins: [
     visualizer({
       emitFile: process.env.NODE_ENV === "production",

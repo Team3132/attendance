@@ -1,8 +1,16 @@
 import useLogout from "@/hooks/useLogout";
 import { authQueryOptions } from "@/queries/auth.queries";
+import env from "@/server/env";
+import { authQueryKeys } from "@/server/queryKeys";
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { onOpenUrl } from "@tauri-apps/plugin-deep-link";
+import { load } from "@tauri-apps/plugin-store";
 
 import { Suspense } from "react";
 
@@ -49,7 +57,8 @@ function Component() {
           </Typography>
           <Stack gap={2} direction="row" justifyContent="center">
             <Suspense fallback={null}>
-              <LoginButton />
+              {window.isTauri ? <TauriLoginButton /> : <LoginButton />}
+              {/* <LoginButton /> */}
             </Suspense>
             <Suspense fallback={null}>
               <LogoutButton />
@@ -85,6 +94,61 @@ function LogoutButton() {
 function LoginButton() {
   return (
     <Button variant="contained" color="primary" href="/api/auth/discord">
+      Login
+    </Button>
+  );
+}
+
+function TauriLoginButton() {
+  const navigate = Route.useNavigate();
+  const queryClient = useQueryClient();
+
+  const handleLoginMutation = useMutation({
+    mutationKey: ["tauri", "login"],
+    mutationFn: async () => {
+      const { openUrl } = await import("@tauri-apps/plugin-opener");
+      await openUrl(`${env.VITE_URL}/api/auth/discord?isTauri=1`);
+
+      let unlistener = () => {};
+
+      const urls = await new Promise<string[]>((res, rej) => {
+        onOpenUrl((urls) => {
+          res(urls);
+        })
+          .then((res) => {
+            unlistener = res;
+          })
+          .catch(rej);
+      });
+
+      unlistener();
+
+      const [url] = urls;
+
+      const tokenSearchParam = new URL(url).searchParams.get("token");
+
+      const authStore = await load("auth.json");
+      if (tokenSearchParam) await authStore.set("token", tokenSearchParam);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: authQueryKeys.status(),
+      });
+      navigate({
+        to: "/",
+        reloadDocument: true,
+      });
+    },
+  });
+
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      // href="/api/auth/discord?isTauri=1"
+      onClick={() => handleLoginMutation.mutate()}
+      loading={handleLoginMutation.isPending}
+    >
       Login
     </Button>
   );
