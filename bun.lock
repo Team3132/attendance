@@ -10,7 +10,7 @@
         "@discordjs/rest": "2.6.0",
         "@emotion/react": "11.14.0",
         "@emotion/styled": "11.14.1",
-        "@fontsource-variable/roboto": "5.2.9",
+        "@fontsource-variable/roboto": "5.2.10",
         "@graphql-yoga/subscription": "5.0.5",
         "@hookform/resolvers": "5.2.2",
         "@mui/material": "7.3.8",
@@ -294,7 +294,7 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.25.12", "", { "os": "win32", "cpu": "x64" }, "sha512-alJC0uCZpTFrSL0CCDjcgleBXPnCrEAhTBILpeAp7M/OFgoqtAetfBzX0xM00MUsVVPpVjlPuMbREqnZCXaTnA=="],
 
-    "@fontsource-variable/roboto": ["@fontsource-variable/roboto@5.2.9", "", {}, "sha512-uH58g1An9Z4Efiviu0YuN8lvYf22TXidCx2++ZPpEegviaPaYQUwNbQZyr5lO2ae3pM07AolUabngLrlYtuzfA=="],
+    "@fontsource-variable/roboto": ["@fontsource-variable/roboto@5.2.10", "", {}, "sha512-LJ0iLg6aHbLzN515gyHzmdTqJzd9NlI95cCg1DW0F5G7KkFqRLBBKBbqEJx4nSu4aby3IKmw3ZH6Fe928IfaSQ=="],
 
     "@graphql-yoga/subscription": ["@graphql-yoga/subscription@5.0.5", "", { "dependencies": { "@graphql-yoga/typed-event-target": "^3.0.2", "@repeaterjs/repeater": "^3.0.4", "@whatwg-node/events": "^0.1.0", "tslib": "^2.8.1" } }, "sha512-oCMWOqFs6QV96/NZRt/ZhTQvzjkGB4YohBOpKM4jH/lDT4qb7Lex/aGCxpi/JD9njw3zBBtMqxbaC22+tFHVvw=="],
 
