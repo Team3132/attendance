@@ -4,6 +4,7 @@ import {
   getCurrentSession,
   invalidateSession,
 } from "@/server/auth/session";
+import { isTauri } from "@/utils/isTauri";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { redirect, useNavigate } from "@tanstack/react-router";
 import { createServerFn, useServerFn } from "@tanstack/react-start";
@@ -35,7 +36,7 @@ export default function useLogout() {
 
   return useMutation({
     mutationFn: async () => {
-      if (!window?.isTauri) {
+      if (!isTauri) {
         return logout();
       }
 

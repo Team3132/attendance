@@ -2,6 +2,7 @@ import useLogout from "@/hooks/useLogout";
 import { authQueryOptions } from "@/queries/auth.queries";
 import env from "@/server/env";
 import { authQueryKeys } from "@/server/queryKeys";
+import { isTauri } from "@/utils/isTauri";
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
 import {
   useMutation,
@@ -55,7 +56,7 @@ function Component() {
           </Typography>
           <Stack gap={2} direction="row" justifyContent="center">
             <Suspense fallback={null}>
-              {window?.isTauri ? <TauriLoginButton /> : <LoginButton />}
+              {isTauri ? <TauriLoginButton /> : <LoginButton />}
               {/* <LoginButton /> */}
             </Suspense>
             <Suspense fallback={null}>

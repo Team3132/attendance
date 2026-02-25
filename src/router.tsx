@@ -9,6 +9,7 @@ import { toaster } from "./components/Toaster";
 import { routeTree } from "./routeTree.gen";
 import env from "./server/env";
 import type { StrictlyTypedQueryKeys } from "./server/queryKeys";
+import { isTauri } from "./utils/isTauri";
 import { logger } from "./utils/logger";
 
 export function getRouter() {
@@ -42,7 +43,7 @@ export function getRouter() {
     scrollToTopSelectors: ["#main-area"],
     defaultPreload: "intent",
     history:
-      import.meta.env.SSR || !window?.isTauri || env.TSS_PRERENDERING
+      import.meta.env.SSR || !isTauri || env.TSS_PRERENDERING
         ? undefined
         : createHashHistory(),
   });

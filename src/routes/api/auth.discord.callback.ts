@@ -71,7 +71,7 @@ export const Route = createFileRoute("/api/auth/discord/callback")({
           .number()
           .optional()
           .safeParseAsync(getCookie("is_tauri"));
-        const isTauri = data === 1;
+        const isCookieTauri = data === 1;
 
         if (!discord_oauth_code_verifier || !discord_oauth_state)
           throw new Error("No state cookies supplied, retry request.");
@@ -205,7 +205,7 @@ export const Route = createFileRoute("/api/auth/discord/callback")({
 
         setSessionTokenCookie(sessionToken, session.expiresAt);
 
-        if (isTauri)
+        if (isCookieTauri)
           headers.set("Location", `attendance://login?token=${sessionToken}`);
 
         logger.info(
