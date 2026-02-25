@@ -7,9 +7,9 @@ export const requestLoggerMiddleware = createMiddleware().server(
 
     const startTime = performance.now();
 
-    // logger
-    //   .withTag("Request")
-    //   .start(`${request.method} ${request.url} - Starting`);
+    logger
+      .withTag("Request")
+      .start(`${request.method} ${request.url} - Starting`);
 
     try {
       const result = await next();

@@ -14,6 +14,8 @@ import type { RSVPStatusSchema } from "./server/schema/RSVPStatusSchema";
 import { reminderFn } from "./server/services/adminService";
 import { logger } from "./utils/logger";
 
+console.log("starting server");
+
 /**
  * A pubsub events manager for future websocket features
  */
