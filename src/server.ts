@@ -13,6 +13,7 @@ import env from "./server/env";
 import type { RSVPStatusSchema } from "./server/schema/RSVPStatusSchema";
 import { reminderFn } from "./server/services/adminService";
 import { logger } from "./utils/logger";
+import { trytm } from "./utils/trytm";
 
 console.log("starting server");
 
@@ -30,14 +31,18 @@ const pubSub = createPubSub<{
   ];
 }>();
 
-const db = await initialiseDatabase();
+const [db, dbInitError] = await trytm(initialiseDatabase());
+if (dbInitError) {
+  console.log("dbInitError", dbInitError);
+  throw dbInitError;
+}
 
 const kv = getKV(db);
 
 /**
  * Restore CRON Jobs
  */
-async function restoreCron() {
+async function restoreCron(db: DB) {
   const filters = await db.query.eventParsingRuleTable.findMany();
 
   for (const filter of filters) {
@@ -74,7 +79,13 @@ async function restoreCron() {
   }
 }
 
-if (!env.TSS_PRERENDERING) await restoreCron();
+if (!env.TSS_PRERENDERING) {
+  const [_res, error] = await trytm(restoreCron(db));
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 export type BunWebsocketEvents = Pick<
   WebSocketHandler<BunWebsocketEvents>,
