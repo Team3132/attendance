@@ -7,7 +7,6 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { redirect, useNavigate } from "@tanstack/react-router";
 import { createServerFn, useServerFn } from "@tanstack/react-start";
-import { load } from "@tauri-apps/plugin-store";
 
 const logoutFn = createServerFn({
   method: "POST",
@@ -36,10 +35,11 @@ export default function useLogout() {
 
   return useMutation({
     mutationFn: async () => {
-      if (!window.isTauri) {
+      if (!window?.isTauri) {
         return logout();
       }
 
+      const { load } = await import("@tauri-apps/plugin-store");
       const authStore = await load("auth.json");
       await authStore.delete("token");
     },

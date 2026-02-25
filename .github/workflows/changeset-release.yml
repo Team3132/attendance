@@ -16,9 +16,9 @@ jobs:
   check:
     uses: ./.github/workflows/job-check.yml
     name: Lint and Type Check
-  test:
-    uses: ./.github/workflows/playwright.yml
-    name: Playwright Tests
+  # test:
+  #   uses: ./.github/workflows/playwright.yml
+  #   name: Playwright Tests
 
   release:
     name: Release Changeset

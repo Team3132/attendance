@@ -6,7 +6,6 @@ import {
 import env from "@/server/env";
 import { redirect } from "@tanstack/react-router";
 import { createMiddleware } from "@tanstack/react-start";
-import { load } from "@tauri-apps/plugin-store";
 
 declare global {
   // Note the capital "W"
@@ -18,7 +17,8 @@ declare global {
 export const bearerInjectionMiddleware = createMiddleware({
   type: "function",
 }).client(async ({ next }) => {
-  if (window.isTauri) {
+  if (window?.isTauri) {
+    const { load } = await import("@tauri-apps/plugin-store");
     const authStore = await load("auth.json");
     const token = await authStore.get<string>("token");
 

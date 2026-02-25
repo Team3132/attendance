@@ -7,6 +7,7 @@ import {
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import { toaster } from "./components/Toaster";
 import { routeTree } from "./routeTree.gen";
+import env from "./server/env";
 import type { StrictlyTypedQueryKeys } from "./server/queryKeys";
 import { logger } from "./utils/logger";
 
@@ -41,7 +42,9 @@ export function getRouter() {
     scrollToTopSelectors: ["#main-area"],
     defaultPreload: "intent",
     history:
-      import.meta.env.SSR || !window.isTauri ? undefined : createHashHistory(),
+      import.meta.env.SSR || !window?.isTauri || env.TSS_PRERENDERING
+        ? undefined
+        : createHashHistory(),
   });
 
   setupRouterSsrQueryIntegration({

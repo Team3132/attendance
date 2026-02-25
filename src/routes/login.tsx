@@ -9,8 +9,6 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { onOpenUrl } from "@tauri-apps/plugin-deep-link";
-import { load } from "@tauri-apps/plugin-store";
 
 import { Suspense } from "react";
 
@@ -57,7 +55,7 @@ function Component() {
           </Typography>
           <Stack gap={2} direction="row" justifyContent="center">
             <Suspense fallback={null}>
-              {window.isTauri ? <TauriLoginButton /> : <LoginButton />}
+              {window?.isTauri ? <TauriLoginButton /> : <LoginButton />}
               {/* <LoginButton /> */}
             </Suspense>
             <Suspense fallback={null}>
@@ -107,6 +105,7 @@ function TauriLoginButton() {
     mutationKey: ["tauri", "login"],
     mutationFn: async () => {
       const { openUrl } = await import("@tauri-apps/plugin-opener");
+      const { onOpenUrl } = await import("@tauri-apps/plugin-deep-link");
       await openUrl(`${env.VITE_URL}/api/auth/discord?isTauri=1`);
 
       let unlistener = () => {};
@@ -126,7 +125,7 @@ function TauriLoginButton() {
       const [url] = urls;
 
       const tokenSearchParam = new URL(url).searchParams.get("token");
-
+      const { load } = await import("@tauri-apps/plugin-store");
       const authStore = await load("auth.json");
       if (tokenSearchParam) await authStore.set("token", tokenSearchParam);
     },

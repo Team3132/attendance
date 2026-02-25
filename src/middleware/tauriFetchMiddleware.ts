@@ -4,7 +4,7 @@ import { type CustomFetch, createMiddleware } from "@tanstack/react-start";
 export const customFetchMiddleware = createMiddleware({
   type: "function",
 }).client(async ({ next }) => {
-  if (!window.isTauri) return next();
+  if (!window?.isTauri) return next();
 
   const { fetch: tauriFetch } = await import("@tauri-apps/plugin-http");
 
