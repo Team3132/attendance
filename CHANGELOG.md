@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.10
+
+### Patch Changes
+
+- [`97cca01`](https://github.com/Team3132/attendance/commit/97cca01a0ca45335d7dc03bfe15bd5dc35f2a3a2) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix version bumping and build pipeline
+
 ## 6.4.9
 
 ### Patch Changes
