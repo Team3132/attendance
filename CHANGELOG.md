@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.7
+
+### Patch Changes
+
+- [#3365](https://github.com/Team3132/attendance/pull/3365) [`0314d13`](https://github.com/Team3132/attendance/commit/0314d1345213a6d32abb1b8f118a8972f8cbd104) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Tauri
+
 ## 6.4.6
 
 ### Patch Changes
