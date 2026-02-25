@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.13
+
+### Patch Changes
+
+- [`57ef79c`](https://github.com/Team3132/attendance/commit/57ef79ccfaa2e2530d36b42a0c88b2394dd1e31e) Thanks [@sebasptsch](https://github.com/sebasptsch)! - include vite url in build
+
 ## 6.4.12
 
 ### Patch Changes
