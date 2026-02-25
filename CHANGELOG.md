@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.8
+
+### Patch Changes
+
+- [`b6e56a3`](https://github.com/Team3132/attendance/commit/b6e56a3f93609fccb19e70968163592255676522) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Fix dist restoration
+
 ## 6.4.7
 
 ### Patch Changes
