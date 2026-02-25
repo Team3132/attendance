@@ -4179,9 +4179,9 @@ checksum = "61c41af27dd6d1e27b1b16b489db798443478cef1f06a660c96db617ba5de3b1"
 
 [[package]]
 name = "tauri"
-version = "2.10.2"
+version = "2.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "463ae8677aa6d0f063a900b9c41ecd4ac2b7ca82f0b058cc4491540e55b20129"
+checksum = "e19299a5f2ccb6bcb2a38b1eb7999e8bbdbd5bdd3cf74a4f8ab412726cbd65e7"
 dependencies = [
  "anyhow",
  "bytes",
@@ -4230,9 +4230,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-build"
-version = "2.5.5"
+version = "2.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ca7bd893329425df750813e95bd2b643d5369d929438da96d5bbb7cc2c918f74"
+checksum = "76809f63061c8b25537b87f46b8733b31397cf419706dc874e1602be6479ba90"
 dependencies = [
  "anyhow",
  "cargo_toml",
