@@ -1,13 +1,12 @@
 {
 	"$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
 	"productName": "attendance",
-	"version": "0.1.0",
 	"identifier": "com.team3132.attendance",
 	"build": {
 		"frontendDist": "../dist/client",
 		"devUrl": "http://localhost:1420",
 		"beforeDevCommand": "bun dev",
-		"beforeBuildCommand": ""
+		"beforeBuildCommand": "bun run build"
 	},
 	"app": {
 		"windows": [
