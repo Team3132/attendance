@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.9
+
+### Patch Changes
+
+- [`46e4b86`](https://github.com/Team3132/attendance/commit/46e4b8658b54b108d40aa9b347d22ea94ede74d4) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix bug with tauri detection
+
 ## 6.4.8
 
 ### Patch Changes
