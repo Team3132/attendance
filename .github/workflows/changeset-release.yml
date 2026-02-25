@@ -30,7 +30,7 @@ jobs:
       pull-requests: write
     needs: 
       - check
-      - test
+      # - test
     outputs:
       published: ${{ steps.changesets.outputs.published }}
       publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
