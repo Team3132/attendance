@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.20
+
+### Patch Changes
+
+- [`9366cd5`](https://github.com/Team3132/attendance/commit/9366cd53b756ee88da56015b1f2d28089ede8c61) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix logger
+
 ## 6.4.19
 
 ### Patch Changes
