@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.18
+
+### Patch Changes
+
+- [`3eb5c0a`](https://github.com/Team3132/attendance/commit/3eb5c0ad03d89ef8085acfd6614b961d7afa0baa) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add log in server to catch error
+
 ## 6.4.17
 
 ### Patch Changes
