@@ -17,7 +17,6 @@
 	],
 	"rangeStrategy": "pin",
 	"addLabels": ["renovate"],
-	"automergeSchedule": [
-        "* 0-3 * * 1"
-	]
+	"automergeSchedule": ["* 0-3 * * 1"],
+	"ignorePaths": ["./src-tauri/gen"]
 }
