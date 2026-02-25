@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.17
+
+### Patch Changes
+
+- [`8583aed`](https://github.com/Team3132/attendance/commit/8583aed9bee3c1c80439499aeea9e1a2e07603fd) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Tauri platform
+
 ## 6.4.16
 
 ### Patch Changes
