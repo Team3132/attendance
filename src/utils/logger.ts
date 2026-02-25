@@ -6,14 +6,15 @@ export const logger = import.meta.env.SSR
       formatOptions: {
         date: import.meta.env.PROD,
       },
-      reporters: import.meta.env.PROD
-        ? [
-            {
-              log: (logObj) => console.log(JSON.stringify(logObj)),
-            },
-          ]
-        : undefined,
-    }).withTag("Server")
+    })
   : createConsola({
       level: LogLevels.debug,
     }).withTag("Client");
+
+if (import.meta.env.SSR && import.meta.env.PROD) {
+  logger.setReporters([
+    {
+      log: (logObj) => console.log(JSON.stringify(logObj)),
+    },
+  ]);
+}
