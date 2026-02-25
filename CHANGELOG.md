@@ -1,5 +1,13 @@
 # frontend
 
+## 6.4.11
+
+### Patch Changes
+
+- [`12f6746`](https://github.com/Team3132/attendance/commit/12f6746c8f23b6585a0a6073709d9bb8107d482d) Thanks [@sebasptsch](https://github.com/sebasptsch)! - add xdg-utils to ubuntu bundling
+
+- [`12f6746`](https://github.com/Team3132/attendance/commit/12f6746c8f23b6585a0a6073709d9bb8107d482d) Thanks [@sebasptsch](https://github.com/sebasptsch)! - add xdg utils to ubuntu
+
 ## 6.4.10
 
 ### Patch Changes
