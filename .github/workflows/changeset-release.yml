@@ -91,6 +91,7 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           name: build
+          path: dist
       - name: Display structure of downloaded files
         run: ls -R ./dist
       - name: Set up QEMU
@@ -188,6 +189,7 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           name: build
+          path: dist
       - name: Display structure of downloaded files
         run: ls -R ./dist
       - name: Install Dependancies
