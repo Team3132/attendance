@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.19
+
+### Patch Changes
+
+- [`e9a47ac`](https://github.com/Team3132/attendance/commit/e9a47ac75d8e5250edd676084b6c970d9bfd3fd6) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add basic error handling
+
 ## 6.4.18
 
 ### Patch Changes
