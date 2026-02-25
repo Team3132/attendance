@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.15
+
+### Patch Changes
+
+- [`144f30d`](https://github.com/Team3132/attendance/commit/144f30dcdc03612cb79190e8247047b7b57c30eb) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Revert versions :(
+
 ## 6.4.14
 
 ### Patch Changes
