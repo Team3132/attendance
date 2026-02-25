@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.12
+
+### Patch Changes
+
+- [`75b103b`](https://github.com/Team3132/attendance/commit/75b103b2e1be7cc1a136f02ab425fa047d318b4e) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix client var access
+
 ## 6.4.11
 
 ### Patch Changes
