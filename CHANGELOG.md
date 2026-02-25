@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.16
+
+### Patch Changes
+
+- [`24b0750`](https://github.com/Team3132/attendance/commit/24b075032d838ca26d710978aeb6a6275b09107c) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add import
+
 ## 6.4.15
 
 ### Patch Changes
