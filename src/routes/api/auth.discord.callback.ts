@@ -67,12 +67,18 @@ export const Route = createFileRoute("/api/auth/discord/callback")({
         const discord_oauth_code_verifier = getCookie(
           "discord_oauth_code_verifier",
         );
+        const { data } = await z.coerce
+          .number()
+          .optional()
+          .safeParseAsync(getCookie("is_tauri"));
+        const isTauri = data === 1;
 
         if (!discord_oauth_code_verifier || !discord_oauth_state)
           throw new Error("No state cookies supplied, retry request.");
 
         deleteCookie("discord_oauth_state");
         deleteCookie("discord_oauth_code_verifier");
+        deleteCookie("is_tauri");
 
         if (discord_oauth_state !== state) {
           return new Response(null, {
@@ -198,6 +204,9 @@ export const Route = createFileRoute("/api/auth/discord/callback")({
         }
 
         setSessionTokenCookie(sessionToken, session.expiresAt);
+
+        if (isTauri)
+          headers.set("Location", `attendance://login?token=${sessionToken}`);
 
         logger.info(
           `User ${nick || username} (${id}) authenticated successfully`,
