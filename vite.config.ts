@@ -15,12 +15,21 @@ export default defineConfig({
   build: {
     // sourcemap: "hidden",
     // minify: false,
-    // target:
-    //   process.env.TAURI_ENV_PLATFORM === "windows" ? "chrome105" : "safari13",
+
     // don't minify for debug builds
     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_ENV_DEBUG,
+  },
+  environments: {
+    client: {
+      build: {
+        target:
+          process.env.TAURI_ENV_PLATFORM === "windows"
+            ? "chrome105"
+            : "safari13",
+      },
+    },
   },
   server: {
     port: 1420,
