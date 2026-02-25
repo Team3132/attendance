@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.14
+
+### Patch Changes
+
+- [`3c615c5`](https://github.com/Team3132/attendance/commit/3c615c52db1fdde713664a6110e31dc7b502229a) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Update Dependancies
+
 ## 6.4.13
 
 ### Patch Changes
