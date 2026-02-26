@@ -1,4 +1,12 @@
+import { authBaseMiddleware } from "@/middleware/authMiddleware";
+import {
+  createSession,
+  generateSessionToken,
+  setSessionTokenCookie,
+} from "@/server/auth/session";
 import env from "@/server/env";
+import { logger } from "@/utils/logger";
+import { trytm } from "@/utils/trytm";
 import { createFileRoute } from "@tanstack/react-router";
 import { deleteCookie, setCookie } from "@tanstack/react-start/server";
 import { Discord, generateCodeVerifier, generateState } from "arctic";
@@ -6,8 +14,9 @@ import z from "zod";
 
 export const Route = createFileRoute("/api/auth/discord")({
   server: {
+    middleware: [authBaseMiddleware],
     handlers: {
-      GET: async ({ request }) => {
+      GET: async ({ request, context }) => {
         if (
           !env.DISCORD_CLIENT_ID ||
           !env.DISCORD_CLIENT_SECRET ||
@@ -24,6 +33,30 @@ export const Route = createFileRoute("/api/auth/discord")({
           .safeParseAsync(searchIsTauri);
 
         const isTauri = data === 1;
+
+        const headers = new Headers();
+
+        if (context.session !== null && isTauri) {
+          const sessionToken = generateSessionToken();
+
+          const [session, sessionError] = await trytm(
+            createSession(context, sessionToken, context.user.id),
+          );
+
+          if (sessionError) {
+            logger.error("Failed to create session", sessionError);
+            return new Response(null, {
+              status: 302,
+              headers,
+            });
+          }
+
+          setSessionTokenCookie(sessionToken, session.expiresAt);
+
+          headers.set("Location", `attendance://login?token=${sessionToken}`);
+
+          new Response(null, { headers, status: 302 });
+        }
 
         const state = generateState();
         const codeVerifier = generateCodeVerifier();
@@ -43,8 +76,6 @@ export const Route = createFileRoute("/api/auth/discord")({
           "guilds",
           "guilds.members.read",
         ]);
-
-        const headers = new Headers();
 
         setCookie("discord_oauth_state", state, {
           secure: import.meta.env.PROD, // set to false in localhost
