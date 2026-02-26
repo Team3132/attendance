@@ -1,5 +1,17 @@
 # frontend
 
+## 6.5.0
+
+### Minor Changes
+
+- [`a3c6872`](https://github.com/Team3132/attendance/commit/a3c68722db847c65e8f95479313d95e6dc69991a) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add the ability to invalidate sessions
+
+### Patch Changes
+
+- [`2d164d7`](https://github.com/Team3132/attendance/commit/2d164d7a2d97d597fc59ee35f0a67f1fd9e89beb) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Fix login, was using incorrect variable
+
+- [`61220af`](https://github.com/Team3132/attendance/commit/61220afc93ed7586f6a808a91da8b6022faf5358) Thanks [@sebasptsch](https://github.com/sebasptsch)! - revert
+
 ## 6.4.21
 
 ### Patch Changes
