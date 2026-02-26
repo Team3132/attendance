@@ -1,9 +1,5 @@
 import { authBaseMiddleware } from "@/middleware/authMiddleware";
-import {
-  createSession,
-  generateSessionToken,
-  setSessionTokenCookie,
-} from "@/server/auth/session";
+import { createSession, generateSessionToken } from "@/server/auth/session";
 import env from "@/server/env";
 import { logger } from "@/utils/logger";
 import { trytm } from "@/utils/trytm";
@@ -39,7 +35,7 @@ export const Route = createFileRoute("/api/auth/discord")({
         if (context.session !== null && isTauri) {
           const sessionToken = generateSessionToken();
 
-          const [session, sessionError] = await trytm(
+          const [_session, sessionError] = await trytm(
             createSession(context, sessionToken, context.user.id),
           );
 
@@ -50,8 +46,6 @@ export const Route = createFileRoute("/api/auth/discord")({
               headers,
             });
           }
-
-          setSessionTokenCookie(sessionToken, session.expiresAt);
 
           headers.set("Location", `attendance://login?token=${sessionToken}`);
 
