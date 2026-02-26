@@ -1,11 +1,19 @@
+import { authMutationOptions } from "@/queries/auth.queries";
 import { usersQueryOptions } from "@/queries/users.queries";
 import { getLocale } from "@/utils/dt";
-import { List, ListItem, ListItemText, Skeleton } from "@mui/material";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import {
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Skeleton,
+} from "@mui/material";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { DateTime } from "luxon";
-import { Suspense } from "react";
+import { Suspense, useCallback } from "react";
+import { MdDelete } from "react-icons/md";
 
 export const Route = createFileRoute(
   "/_authenticated/admin_/users/$userId/sessions",
@@ -44,7 +52,12 @@ function SessionList() {
   return (
     <List>
       {sessions.data.map((session) => (
-        <ListItem key={session.id}>
+        <ListItem
+          key={session.id}
+          secondaryAction={
+            <RevokeSessionButton sessionId={session.id} userId={userId} />
+          }
+        >
           <ListItemText
             primary={DateTime.fromJSDate(session.expiresAt).toLocaleString(
               DateTime.DATETIME_MED,
@@ -54,5 +67,28 @@ function SessionList() {
         </ListItem>
       ))}
     </List>
+  );
+}
+
+interface RevokeSessionButtonProps {
+  sessionId: string;
+  userId: string;
+}
+
+function RevokeSessionButton(props: RevokeSessionButtonProps) {
+  const revokeSelfSessionMutation = useMutation(
+    authMutationOptions.revokeUserSession,
+  );
+
+  const handleClick = useCallback(() => {
+    revokeSelfSessionMutation.mutate({
+      data: props,
+    });
+  }, [props, revokeSelfSessionMutation.mutate]);
+
+  return (
+    <IconButton onClick={handleClick} aria-label="revoke session">
+      <MdDelete />
+    </IconButton>
   );
 }

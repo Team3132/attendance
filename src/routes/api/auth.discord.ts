@@ -1,8 +1,6 @@
 import { authBaseMiddleware } from "@/middleware/authMiddleware";
-import { createSession, generateSessionToken } from "@/server/auth/session";
+import {} from "@/server/auth/session";
 import env from "@/server/env";
-import { logger } from "@/utils/logger";
-import { trytm } from "@/utils/trytm";
 import { createFileRoute } from "@tanstack/react-router";
 import { deleteCookie, setCookie } from "@tanstack/react-start/server";
 import { Discord, generateCodeVerifier, generateState } from "arctic";
@@ -12,7 +10,7 @@ export const Route = createFileRoute("/api/auth/discord")({
   server: {
     middleware: [authBaseMiddleware],
     handlers: {
-      GET: async ({ request, context }) => {
+      GET: async ({ request, context: _c }) => {
         if (
           !env.DISCORD_CLIENT_ID ||
           !env.DISCORD_CLIENT_SECRET ||
@@ -32,25 +30,25 @@ export const Route = createFileRoute("/api/auth/discord")({
 
         const headers = new Headers();
 
-        if (context.session !== null && isTauri) {
-          const sessionToken = generateSessionToken();
+        // if (context.session !== null && isTauri) {
+        //   const sessionToken = generateSessionToken();
 
-          const [_session, sessionError] = await trytm(
-            createSession(context, sessionToken, context.user.id),
-          );
+        //   const [_session, sessionError] = await trytm(
+        //     createSession(context, sessionToken, context.user.id),
+        //   );
 
-          if (sessionError) {
-            logger.error("Failed to create session", sessionError);
-            return new Response(null, {
-              status: 302,
-              headers,
-            });
-          }
+        //   if (sessionError) {
+        //     logger.error("Failed to create session", sessionError);
+        //     return new Response(null, {
+        //       status: 302,
+        //       headers,
+        //     });
+        //   }
 
-          headers.set("Location", `attendance://login?token=${sessionToken}`);
+        //   headers.set("Location", `attendance://login?token=${sessionToken}`);
 
-          return new Response(null, { headers, status: 302 });
-        }
+        //   return new Response(null, { headers, status: 302 });
+        // }
 
         const state = generateState();
         const codeVerifier = generateCodeVerifier();

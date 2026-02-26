@@ -7,7 +7,7 @@ import {
   getRequestHeader,
   setCookie,
 } from "@tanstack/react-start/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { type Session, type User, sessionTable } from "../drizzle/schema";
 
 const validateSessionToken = createServerOnlyFn(
@@ -84,6 +84,17 @@ export const invalidateUserSessions = createServerOnlyFn(
   async (c: ServerContext, userId: string) => {
     const { db } = c;
     await db.delete(sessionTable).where(eq(sessionTable.userId, userId));
+  },
+);
+
+export const invalidateUserSession = createServerOnlyFn(
+  async (c: ServerContext, userId: string, sessionId: string) => {
+    const { db } = c;
+    await db
+      .delete(sessionTable)
+      .where(
+        and(eq(sessionTable.userId, userId), eq(sessionTable.id, sessionId)),
+      );
   },
 );
 
