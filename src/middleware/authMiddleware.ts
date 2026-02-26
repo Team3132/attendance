@@ -22,6 +22,7 @@ export const bearerInjectionMiddleware = createMiddleware({
     const { load } = await import("@tauri-apps/plugin-store");
     const authStore = await load("auth.json");
     const token = await authStore.get<string>("token");
+    await authStore.close();
 
     if (token) {
       console.log("injected token", token);

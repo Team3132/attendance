@@ -29,16 +29,33 @@ const logoutFn = createServerFn({
     });
   });
 
+const tauriLogoutFn = createServerFn({
+  method: "POST",
+})
+  .middleware([authBaseMiddleware])
+  .handler(async ({ context }) => {
+    const { session } = await getCurrentSession(context);
+
+    if (session === null) {
+      throw new Error("Not authenticated");
+    }
+
+    await invalidateSession(context, session.id);
+  });
+
 export default function useLogout() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const logout = useServerFn(logoutFn);
+  const tauriLogoutFnUse = useServerFn(tauriLogoutFn);
 
   return useMutation({
     mutationFn: async () => {
       if (!isTauri) {
         return logout();
       }
+
+      await tauriLogoutFnUse();
 
       const { load } = await import("@tauri-apps/plugin-store");
       const authStore = await load("auth.json");
