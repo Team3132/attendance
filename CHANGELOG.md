@@ -1,5 +1,11 @@
 # frontend
 
+## 6.4.21
+
+### Patch Changes
+
+- [`fbe026a`](https://github.com/Team3132/attendance/commit/fbe026a0b6a46586d5f5869657ef64922ee5c607) Thanks [@sebasptsch](https://github.com/sebasptsch)! - If they're already logged into the browser use that to authenticate desktop or mobile
+
 ## 6.4.20
 
 ### Patch Changes
