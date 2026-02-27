@@ -1,5 +1,11 @@
 # frontend
 
+## 6.5.2
+
+### Patch Changes
+
+- [`157329a`](https://github.com/Team3132/attendance/commit/157329a0ed5e6074397e1e0bf97d97d59bae6266) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix scan init
+
 ## 6.5.1
 
 ### Patch Changes
