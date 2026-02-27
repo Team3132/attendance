@@ -1,0 +1,5 @@
+---
+"attendance": patch
+---
+
+Updater config
