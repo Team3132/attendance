@@ -15,6 +15,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as ApiWsRouteImport } from './routes/api/ws'
 import { Route as ApiInteractionRouteImport } from './routes/api/interaction'
+import { Route as AuthenticatedUpdateRouteImport } from './routes/_authenticated/update'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin_'
@@ -66,6 +67,11 @@ const ApiInteractionRoute = ApiInteractionRouteImport.update({
   id: '/api/interaction',
   path: '/api/interaction',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedUpdateRoute = AuthenticatedUpdateRouteImport.update({
+  id: '/update',
+  path: '/update',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/profile': typeof AuthenticatedProfileRouteWithChildren
+  '/update': typeof AuthenticatedUpdateRoute
   '/api/interaction': typeof ApiInteractionRoute
   '/api/ws': typeof ApiWsRoute
   '/events/$eventId': typeof AuthenticatedEventsEventIdRouteWithChildren
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/error': typeof ErrorRoute
   '/login': typeof LoginRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/update': typeof AuthenticatedUpdateRoute
   '/api/interaction': typeof ApiInteractionRoute
   '/api/ws': typeof ApiWsRoute
   '/': typeof AuthenticatedIndexRoute
@@ -257,6 +265,7 @@ export interface FileRoutesById {
   '/_authenticated/admin_': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRouteWithChildren
+  '/_authenticated/update': typeof AuthenticatedUpdateRoute
   '/api/interaction': typeof ApiInteractionRoute
   '/api/ws': typeof ApiWsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
@@ -289,6 +298,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/leaderboard'
     | '/profile'
+    | '/update'
     | '/api/interaction'
     | '/api/ws'
     | '/events/$eventId'
@@ -315,6 +325,7 @@ export interface FileRouteTypes {
     | '/error'
     | '/login'
     | '/leaderboard'
+    | '/update'
     | '/api/interaction'
     | '/api/ws'
     | '/'
@@ -343,6 +354,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin_'
     | '/_authenticated/leaderboard'
     | '/_authenticated/profile'
+    | '/_authenticated/update'
     | '/api/interaction'
     | '/api/ws'
     | '/_authenticated/'
@@ -420,6 +432,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/interaction'
       preLoaderRoute: typeof ApiInteractionRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/update': {
+      id: '/_authenticated/update'
+      path: '/update'
+      fullPath: '/update'
+      preLoaderRoute: typeof AuthenticatedUpdateRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
@@ -663,6 +682,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRouteWithChildren
+  AuthenticatedUpdateRoute: typeof AuthenticatedUpdateRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedEventsEventIdRoute: typeof AuthenticatedEventsEventIdRouteWithChildren
 }
@@ -671,6 +691,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRouteWithChildren,
+  AuthenticatedUpdateRoute: AuthenticatedUpdateRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedEventsEventIdRoute: AuthenticatedEventsEventIdRouteWithChildren,
 }

@@ -1,5 +1,6 @@
 import { useDisclosure } from "@/hooks/useDisclosure";
 import useLogout from "@/hooks/useLogout";
+import { isDesktop } from "@/utils/isTauri";
 import {
   AppBar,
   Divider,
@@ -10,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import {} from "@tanstack/react-query";
 import { useCallback, useId, useRef } from "react";
 import { FaCircleUser } from "react-icons/fa6";
 import { LinkMenuItem } from "./LinkMenuItem";
@@ -68,11 +68,18 @@ function ProfileMenu() {
         <LinkMenuItem to="/profile">Scancodes</LinkMenuItem>
         <LinkMenuItem to="/profile/pending">Active Events</LinkMenuItem>
         <LinkMenuItem to="/profile/sessions">Sessions</LinkMenuItem>
+        <UpdateLinkMenuItem />
         <Divider />
         <LogoutMenuButton />
       </Menu>
     </>
   );
+}
+
+function UpdateLinkMenuItem() {
+  if (!isDesktop) return null;
+
+  return <LinkMenuItem to="/update">Update</LinkMenuItem>;
 }
 
 function LogoutMenuButton() {
