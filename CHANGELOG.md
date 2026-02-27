@@ -1,5 +1,11 @@
 # frontend
 
+## 6.5.4
+
+### Patch Changes
+
+- [`42a325c`](https://github.com/Team3132/attendance/commit/42a325c85637b1e55237a39833649164750f1b62) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Updater config
+
 ## 6.5.3
 
 ### Patch Changes
