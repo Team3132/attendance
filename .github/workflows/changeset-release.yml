@@ -183,6 +183,7 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
+          prefix-key: ${{ matrix.mobile }}
       
       - name: Install Dependancies
         run: bun install --frozen-lockfile
