@@ -1,5 +1,11 @@
 # frontend
 
+## 6.5.3
+
+### Patch Changes
+
+- [`8944cfc`](https://github.com/Team3132/attendance/commit/8944cfc85796fb1ce3d2d1c9b71e119025df1e21) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add more scan buttons
+
 ## 6.5.2
 
 ### Patch Changes
