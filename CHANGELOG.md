@@ -1,5 +1,13 @@
 # frontend
 
+## 6.5.1
+
+### Patch Changes
+
+- [`d50402b`](https://github.com/Team3132/attendance/commit/d50402b7ee3ad8ccacdf3605b85b69bfa8194a50) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Fix login loop in desktop
+
+- [`e6f0185`](https://github.com/Team3132/attendance/commit/e6f0185162f0dddeefd9e54201bbac3a6ebc3beb) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add barcode scanner
+
 ## 6.5.0
 
 ### Minor Changes
