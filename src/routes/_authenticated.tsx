@@ -2,12 +2,10 @@ import BottomBar from "@/components/BottomBar";
 import GenericServerErrorBoundary from "@/components/GenericServerErrorBoundary";
 import TopBar from "@/components/TopBar";
 import { authQueryOptions } from "@/queries/auth.queries";
-import env from "@/server/env";
 import { logger } from "@/utils/logger";
 import { Box, Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
-import usePartySocket from "partysocket/react";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async ({ context: { queryClient } }) => {
@@ -39,28 +37,28 @@ const RootContainer = styled(Container)({
 });
 
 function Component() {
-  usePartySocket({
-    enabled: import.meta.env.PROD,
-    host: new URL(env.VITE_URL).host,
-    // usePartySocket takes the same arguments as PartySocket.
+  // usePartySocket({
+  //   enabled: import.meta.env.PROD,
+  //   host: new URL(env.VITE_URL).host,
+  //   // usePartySocket takes the same arguments as PartySocket.
 
-    basePath: "api/ws",
+  //   basePath: "api/ws",
 
-    // in addition, you can provide socket lifecycle event handlers
-    // (equivalent to using ws.addEventListener in an effect hook)
-    onOpen() {
-      console.log("connected");
-    },
-    onMessage(e) {
-      console.log("message", e.data);
-    },
-    onClose() {
-      console.log("closed");
-    },
-    onError(_e) {
-      console.log("error");
-    },
-  });
+  //   // in addition, you can provide socket lifecycle event handlers
+  //   // (equivalent to using ws.addEventListener in an effect hook)
+  //   onOpen() {
+  //     console.log("connected");
+  //   },
+  //   onMessage(e) {
+  //     console.log("message", e.data);
+  //   },
+  //   onClose() {
+  //     console.log("closed");
+  //   },
+  //   onError(_e) {
+  //     console.log("error");
+  //   },
+  // });
 
   return (
     <RootWrapper>

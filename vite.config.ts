@@ -10,6 +10,8 @@ const ReactCompilerConfig = {
 
 const host = process.env.TAURI_DEV_HOST;
 
+console.log({ host });
+
 export default defineConfig({
   base: "",
   build: {

@@ -1,17 +1,13 @@
 import useLogout from "@/hooks/useLogout";
 import { authQueryOptions } from "@/queries/auth.queries";
 import env from "@/server/env";
-import { authQueryKeys } from "@/server/queryKeys";
 import { isTauri } from "@/utils/isTauri";
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import type { UnlistenFn } from "@tauri-apps/api/event";
 
-import { Suspense } from "react";
+import { Suspense, useCallback, useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -100,45 +96,63 @@ function LoginButton() {
 
 function TauriLoginButton() {
   const navigate = Route.useNavigate();
-  const queryClient = useQueryClient();
+  const onOpenUrlListener = useRef<UnlistenFn | null>(null);
 
-  const handleLoginMutation = useMutation({
-    mutationKey: ["tauri", "login"],
-    mutationFn: async () => {
-      const { openUrl } = await import("@tauri-apps/plugin-opener");
-      const { onOpenUrl } = await import("@tauri-apps/plugin-deep-link");
-      await openUrl(`${env.VITE_URL}/api/auth/discord?isTauri=1`);
-
-      let unlistener = () => {};
-
-      const urls = await new Promise<string[]>((res, rej) => {
-        onOpenUrl((urls) => {
-          res(urls);
-        })
-          .then((res) => {
-            unlistener = res;
-          })
-          .catch(rej);
-      });
-
-      unlistener();
-
+  const handleDeepLink = useCallback(
+    async (urls: string[]) => {
       const [url] = urls;
+
+      if (!url) return;
 
       const tokenSearchParam = new URL(url).searchParams.get("token");
       const { load } = await import("@tauri-apps/plugin-store");
       const authStore = await load("auth.json");
-      if (tokenSearchParam) await authStore.set("token", tokenSearchParam);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: authQueryKeys.status(),
-      });
+      if (!tokenSearchParam) return;
+
+      await authStore.set("token", tokenSearchParam);
+
+      // client.clear();
       navigate({
         to: "/",
         reloadDocument: true,
       });
     },
+    [navigate],
+  );
+
+  useEffect(() => {
+    if (!isTauri) return;
+    try {
+      (async () => {
+        const { onOpenUrl } = await import("@tauri-apps/plugin-deep-link");
+        const unlisten = await onOpenUrl(async (urls) => {
+          if (urls.length === 0) return;
+          await handleDeepLink(urls);
+        });
+
+        console.log("registered deep link listener");
+
+        onOpenUrlListener.current = unlisten;
+      })();
+    } catch (error) {
+      console.error(error);
+    }
+
+    return () => {
+      if (onOpenUrlListener.current) {
+        console.log("unregistered deep link listener");
+        onOpenUrlListener.current();
+      }
+    };
+  }, [handleDeepLink]);
+
+  const handleLoginMutation = useMutation({
+    mutationKey: ["tauri", "login"],
+    mutationFn: async () => {
+      const { openUrl } = await import("@tauri-apps/plugin-opener");
+      await openUrl(`${env.VITE_URL}/api/auth/discord?isTauri=1`);
+    },
+    onSuccess: () => {},
   });
 
   return (

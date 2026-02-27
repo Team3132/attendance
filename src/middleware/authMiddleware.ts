@@ -5,8 +5,8 @@ import {
 } from "@/server/auth/session";
 import env from "@/server/env";
 import { isTauri } from "@/utils/isTauri";
-import { redirect } from "@tanstack/react-router";
 import { createMiddleware } from "@tanstack/react-start";
+import { setResponseStatus } from "@tanstack/react-start/server";
 
 declare global {
   // Note the capital "W"
@@ -22,11 +22,8 @@ export const bearerInjectionMiddleware = createMiddleware({
     const { load } = await import("@tauri-apps/plugin-store");
     const authStore = await load("auth.json");
     const token = await authStore.get<string>("token");
-    await authStore.close();
 
     if (token) {
-      console.log("injected token", token);
-
       return next({
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,9 +61,8 @@ export const sessionMiddleware = createMiddleware()
 
     // If there's no session or user, we're not logged in and we should redirect to the login page
     if (!session || !user) {
-      throw redirect({
-        to: "/login",
-      });
+      setResponseStatus(401);
+      return new Response("401: Unauthorized");
     }
 
     return next({
@@ -86,9 +82,8 @@ export const adminMiddleware = createMiddleware()
     const { user } = context;
 
     if (!env.ADMIN_ROLE_ID || !user?.roles?.includes(env.ADMIN_ROLE_ID)) {
-      throw redirect({
-        to: "/login",
-      });
+      setResponseStatus(401);
+      return new Response("401: Unauthorized");
     }
 
     return next({

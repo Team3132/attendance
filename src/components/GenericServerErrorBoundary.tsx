@@ -15,6 +15,8 @@ export default function GenericServerErrorBoundary(
   return (
     <QueryErrorBoundary
       fallbackRender={({ resetErrorBoundary, error, handleBack }) => {
+        console.error(error);
+
         const errorMessage =
           error instanceof Error ? error.message : "An error occurred";
 
