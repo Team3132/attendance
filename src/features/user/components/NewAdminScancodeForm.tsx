@@ -1,5 +1,7 @@
+import ScanAdornment from "@/components/ScanAdornment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, ListItem, TextField } from "@mui/material";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import useCreateUserScancode from "../hooks/useCreateUserScancode";
@@ -26,6 +28,7 @@ export default function NewAdminScancodeListItem(
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    setValue,
     reset,
   } = useForm({
     resolver: zodResolver(NewScancodeSchema),
@@ -57,6 +60,14 @@ export default function NewAdminScancodeListItem(
     }
   });
 
+  const handleScan = useCallback(
+    (v: string) => {
+      setValue("code", v);
+      onSubmit();
+    },
+    [setValue, onSubmit],
+  );
+
   return (
     <ListItem component={"form"} onSubmit={onSubmit}>
       <TextField
@@ -68,6 +79,11 @@ export default function NewAdminScancodeListItem(
         fullWidth
         error={!!errors.code}
         helperText={errors.code?.message}
+        slotProps={{
+          input: {
+            endAdornment: <ScanAdornment setSearch={handleScan} />,
+          },
+        }}
       />
       <Button
         loading={isSubmitting}

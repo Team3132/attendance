@@ -1,6 +1,8 @@
 import ControlledTextField from "@/components/ControlledTextField";
+import ScanAdornment from "@/components/ScanAdornment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, ListItem } from "@mui/material";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import useCreateSelfScancode from "../hooks/useCreateSelfScancode";
@@ -20,6 +22,7 @@ export default function NewScancodeListItem() {
     formState: { isSubmitting },
     setError,
     reset,
+    setValue,
     control,
   } = useForm({
     resolver: zodResolver(NewScancodeSchema),
@@ -46,6 +49,14 @@ export default function NewScancodeListItem() {
     }
   });
 
+  const handleScan = useCallback(
+    (v: string) => {
+      setValue("code", v);
+      onSubmit();
+    },
+    [setValue, onSubmit],
+  );
+
   return (
     <ListItem component={"form"} onSubmit={onSubmit}>
       <ControlledTextField
@@ -55,6 +66,11 @@ export default function NewScancodeListItem() {
         name={"code"}
         rules={{
           required: "Event code is required",
+        }}
+        slotProps={{
+          input: {
+            endAdornment: <ScanAdornment setSearch={handleScan} />,
+          },
         }}
       />
       <Button
