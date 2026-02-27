@@ -1,10 +1,12 @@
 import ControlledTextField from "@/components/ControlledTextField";
+import ScanAdornment from "@/components/ScanAdornment";
 import useSelfCheckin from "@/features/events/hooks/useSelfCheckin";
 import { SelfCheckinSchema } from "@/server/schema/SelfCheckinSchema";
 import { logger } from "@/utils/logger";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute(
@@ -27,6 +29,7 @@ function Component() {
     handleSubmit,
     formState: { isSubmitting },
     control,
+    setValue,
   } = useForm({
     resolver: zodResolver(SelfCheckinSchema),
     defaultValues: {
@@ -55,6 +58,14 @@ function Component() {
     }
   });
 
+  const handleScan = useCallback(
+    (v: string) => {
+      setValue("secret", v);
+      onSubmit();
+    },
+    [onSubmit, setValue],
+  );
+
   return (
     <Stack gap={2}>
       <Paper sx={{ p: 2 }} component={"form"} onSubmit={onSubmit}>
@@ -74,6 +85,11 @@ function Component() {
             control={control}
             rules={{ required: "This field is required" }}
             required
+            slotProps={{
+              input: {
+                endAdornment: <ScanAdornment setSearch={handleScan} />,
+              },
+            }}
           />
           <Button
             variant="contained"

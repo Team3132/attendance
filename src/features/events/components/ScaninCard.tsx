@@ -1,4 +1,5 @@
 import ControlledTextField from "@/components/ControlledTextField";
+import ScanAdornment from "@/components/ScanAdornment";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -82,28 +83,26 @@ export default function ScaninCard(props: ScaninCardProps) {
         <Typography variant="h5" textAlign={"center"}>
           Scan In
         </Typography>
-        <Stack
-          gap={2}
-          sx={{
-            flexDirection: "row",
-            justifyContent: "center",
+
+        <ControlledTextField
+          control={control}
+          name="code"
+          label="Code"
+          helperText={"Enter a code to scan in"}
+          slotProps={{
+            input: {
+              endAdornment: <ScanAdornment setSearch={codeCreatedCallback} />,
+            },
           }}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          loading={isSubmitting}
         >
-          <ControlledTextField
-            control={control}
-            name="code"
-            label="Code"
-            helperText={"Enter a code to scan in"}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            loading={isSubmitting}
-          >
-            Scan In
-          </Button>
-        </Stack>
+          Scan In
+        </Button>
       </Stack>
       {unknownCode ? (
         <UnknownCodeModal

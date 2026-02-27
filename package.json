@@ -40,6 +40,7 @@
     "@tanstack/react-virtual": "3.13.19",
     "@tanstack/table-core": "8.21.3",
     "@tanstack/zod-adapter": "1.163.2",
+    "@tauri-apps/plugin-barcode-scanner": "~2",
     "@tauri-apps/plugin-deep-link": "2.4.7",
     "@tauri-apps/plugin-http": "2.5.7",
     "@tauri-apps/plugin-opener": "2.5.3",
