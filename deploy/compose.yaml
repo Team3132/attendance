@@ -3,6 +3,7 @@ name: attendance
 services:
   postgres:
     restart: unless-stopped
+    container_name: attendance_postgres
     image: postgres:17
     environment:
       - POSTGRES_PASSWORD
@@ -10,6 +11,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
   attendance-system:
     restart: unless-stopped
+    container_name: attendance
     image: ghcr.io/team3132/attendance:${TAG:-latest}
     ports:
       - 1420:1420
@@ -29,6 +31,24 @@ services:
       - GOOGLE_PRIVATE_KEY
       - GOOGLE_CALENDAR_ID
       - ADMIN_ROLE_ID
-
+  metabase:
+    image: metabase metabase/metabase
+    container_name: metabase
+    ports:
+      - 3030:3000
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    healthcheck:
+      test: curl --fail -I http://localhost:3000/api/health || exit 1
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - /dev/urandom:/dev/random:ro
+      - metabase-data:/metabase-data
+    environment:
+      - MB_DB_FILE=/metabase-data/metabase.db
 volumes:
   postgres-data:
+  metabase-data:
