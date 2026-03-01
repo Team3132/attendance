@@ -1,5 +1,13 @@
 # frontend
 
+## 6.5.5
+
+### Patch Changes
+
+- [`906a559`](https://github.com/Team3132/attendance/commit/906a5597c26d7d5fcf0ac9deb28c4b117ae1ff6c) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Add metabase instance for attendance stats
+
+- [`49f5995`](https://github.com/Team3132/attendance/commit/49f5995c3d52c9fbc55bbe233c1b8e916b444514) Thanks [@sebasptsch](https://github.com/sebasptsch)! - basic update screen
+
 ## 6.5.4
 
 ### Patch Changes
