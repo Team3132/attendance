@@ -1,5 +1,11 @@
 # frontend
 
+## 6.5.6
+
+### Patch Changes
+
+- [`0cc100c`](https://github.com/Team3132/attendance/commit/0cc100cb1ca12d57b28ba1e9c806bb0baafa0fd0) Thanks [@sebasptsch](https://github.com/sebasptsch)! - fix image reference format
+
 ## 6.5.5
 
 ### Patch Changes
