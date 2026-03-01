@@ -32,7 +32,7 @@ services:
       - GOOGLE_CALENDAR_ID
       - ADMIN_ROLE_ID
   metabase:
-    image: metabase metabase/metabase
+    image: metabase/metabase
     container_name: metabase
     ports:
       - 3030:3000
