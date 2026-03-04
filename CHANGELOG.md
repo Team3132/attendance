@@ -1,5 +1,13 @@
 # frontend
 
+## 6.5.8
+
+### Patch Changes
+
+- [`1f50332`](https://github.com/Team3132/attendance/commit/1f50332b19520cae477524839a8e4206cdbe3060) Thanks [@sebasptsch](https://github.com/sebasptsch)! - move routes around
+
+- [`1f50332`](https://github.com/Team3132/attendance/commit/1f50332b19520cae477524839a8e4206cdbe3060) Thanks [@sebasptsch](https://github.com/sebasptsch)! - use mask route for add dialog
+
 ## 6.5.7
 
 ### Patch Changes
