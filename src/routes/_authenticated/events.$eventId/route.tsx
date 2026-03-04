@@ -31,7 +31,7 @@ export const Route = createFileRoute("/_authenticated/events/$eventId")({
 const userTabs = (eventId: string): TabItem[] => [
   {
     label: "RSVPs",
-    to: "/events/$eventId",
+    to: "/events/$eventId/rsvps",
     params: {
       eventId: eventId,
     },

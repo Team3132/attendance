@@ -152,7 +152,7 @@ function EventList() {
         <LinkListItemButton
           ref={ref}
           key={index}
-          to={"/events/$eventId"}
+          to={"/events/$eventId/rsvps"}
           params={{
             eventId: row.id,
           }}

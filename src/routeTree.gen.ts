@@ -11,31 +11,32 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ErrorRouteImport } from './routes/error'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as ApiWsRouteImport } from './routes/api/ws'
 import { Route as ApiInteractionRouteImport } from './routes/api/interaction'
 import { Route as AuthenticatedUpdateRouteImport } from './routes/_authenticated/update'
-import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin_'
+import { Route as AuthenticatedProfileRouteRouteImport } from './routes/_authenticated/profile/route'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin_/route'
 import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin_/index'
 import { Route as ApiAuthDiscordRouteImport } from './routes/api/auth.discord'
 import { Route as AuthenticatedProfileSessionsRouteImport } from './routes/_authenticated/profile/sessions'
 import { Route as AuthenticatedProfilePendingRouteImport } from './routes/_authenticated/profile/pending'
-import { Route as AuthenticatedEventsEventIdRouteImport } from './routes/_authenticated/events/$eventId'
-import { Route as AuthenticatedEventsEventIdIndexRouteImport } from './routes/_authenticated/events/$eventId/index'
+import { Route as AuthenticatedEventsEventIdRouteRouteImport } from './routes/_authenticated/events.$eventId/route'
 import { Route as AuthenticatedAdminUsersIndexRouteImport } from './routes/_authenticated/admin_/users/index'
 import { Route as AuthenticatedAdminEventParsingIndexRouteImport } from './routes/_authenticated/admin_/event-parsing/index'
 import { Route as ApiSchedulerCalendarTriggerRouteImport } from './routes/api/scheduler.calendar.trigger'
 import { Route as ApiAuthDiscordCallbackRouteImport } from './routes/api/auth.discord.callback'
-import { Route as AuthenticatedEventsEventIdQrCodeRouteImport } from './routes/_authenticated/events/$eventId/qr-code'
-import { Route as AuthenticatedEventsEventIdCheckInRouteImport } from './routes/_authenticated/events/$eventId/check-in'
+import { Route as AuthenticatedEventsEventIdQrCodeRouteImport } from './routes/_authenticated/events.$eventId/qr-code'
+import { Route as AuthenticatedEventsEventIdCheckInRouteImport } from './routes/_authenticated/events.$eventId/check-in'
 import { Route as AuthenticatedAdminUsersUserIdRouteImport } from './routes/_authenticated/admin_/users/$userId'
 import { Route as AuthenticatedAdminEventParsingCreateRouteImport } from './routes/_authenticated/admin_/event-parsing/create'
 import { Route as AuthenticatedAdminEventParsingRuleIdRouteImport } from './routes/_authenticated/admin_/event-parsing/$ruleId'
+import { Route as AuthenticatedEventsEventIdRsvpsRouteRouteImport } from './routes/_authenticated/events.$eventId/rsvps/route'
 import { Route as AuthenticatedAdminUsersUserIdIndexRouteImport } from './routes/_authenticated/admin_/users/$userId/index'
+import { Route as AuthenticatedEventsEventIdRsvpsNewRouteImport } from './routes/_authenticated/events.$eventId/rsvps/new'
 import { Route as AuthenticatedAdminUsersUserIdSessionsRouteImport } from './routes/_authenticated/admin_/users/$userId/sessions'
 import { Route as AuthenticatedAdminUsersUserIdPendingRouteImport } from './routes/_authenticated/admin_/users/$userId/pending'
 
@@ -49,14 +50,14 @@ const ErrorRoute = ErrorRouteImport.update({
   path: '/error',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiWsRoute = ApiWsRouteImport.update({
   id: '/api/ws',
@@ -71,34 +72,35 @@ const ApiInteractionRoute = ApiInteractionRouteImport.update({
 const AuthenticatedUpdateRoute = AuthenticatedUpdateRouteImport.update({
   id: '/update',
   path: '/update',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AuthenticatedRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedLeaderboardRoute =
   AuthenticatedLeaderboardRouteImport.update({
     id: '/leaderboard',
     path: '/leaderboard',
-    getParentRoute: () => AuthenticatedRoute,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+const AuthenticatedProfileRouteRoute =
+  AuthenticatedProfileRouteRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   id: '/admin_',
   path: '/admin',
-  getParentRoute: () => AuthenticatedRoute,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedProfileIndexRoute =
   AuthenticatedProfileIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AuthenticatedProfileRoute,
+    getParentRoute: () => AuthenticatedProfileRouteRoute,
   } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedAdminRoute,
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
 const ApiAuthDiscordRoute = ApiAuthDiscordRouteImport.update({
   id: '/api/auth/discord',
@@ -109,37 +111,31 @@ const AuthenticatedProfileSessionsRoute =
   AuthenticatedProfileSessionsRouteImport.update({
     id: '/sessions',
     path: '/sessions',
-    getParentRoute: () => AuthenticatedProfileRoute,
+    getParentRoute: () => AuthenticatedProfileRouteRoute,
   } as any)
 const AuthenticatedProfilePendingRoute =
   AuthenticatedProfilePendingRouteImport.update({
     id: '/pending',
     path: '/pending',
-    getParentRoute: () => AuthenticatedProfileRoute,
+    getParentRoute: () => AuthenticatedProfileRouteRoute,
   } as any)
-const AuthenticatedEventsEventIdRoute =
-  AuthenticatedEventsEventIdRouteImport.update({
+const AuthenticatedEventsEventIdRouteRoute =
+  AuthenticatedEventsEventIdRouteRouteImport.update({
     id: '/events/$eventId',
     path: '/events/$eventId',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedEventsEventIdIndexRoute =
-  AuthenticatedEventsEventIdIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedEventsEventIdRoute,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAdminUsersIndexRoute =
   AuthenticatedAdminUsersIndexRouteImport.update({
     id: '/users/',
     path: '/users/',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminEventParsingIndexRoute =
   AuthenticatedAdminEventParsingIndexRouteImport.update({
     id: '/event-parsing/',
     path: '/event-parsing/',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const ApiSchedulerCalendarTriggerRoute =
   ApiSchedulerCalendarTriggerRouteImport.update({
@@ -156,37 +152,49 @@ const AuthenticatedEventsEventIdQrCodeRoute =
   AuthenticatedEventsEventIdQrCodeRouteImport.update({
     id: '/qr-code',
     path: '/qr-code',
-    getParentRoute: () => AuthenticatedEventsEventIdRoute,
+    getParentRoute: () => AuthenticatedEventsEventIdRouteRoute,
   } as any)
 const AuthenticatedEventsEventIdCheckInRoute =
   AuthenticatedEventsEventIdCheckInRouteImport.update({
     id: '/check-in',
     path: '/check-in',
-    getParentRoute: () => AuthenticatedEventsEventIdRoute,
+    getParentRoute: () => AuthenticatedEventsEventIdRouteRoute,
   } as any)
 const AuthenticatedAdminUsersUserIdRoute =
   AuthenticatedAdminUsersUserIdRouteImport.update({
     id: '/users/$userId',
     path: '/users/$userId',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminEventParsingCreateRoute =
   AuthenticatedAdminEventParsingCreateRouteImport.update({
     id: '/event-parsing/create',
     path: '/event-parsing/create',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminEventParsingRuleIdRoute =
   AuthenticatedAdminEventParsingRuleIdRouteImport.update({
     id: '/event-parsing/$ruleId',
     path: '/event-parsing/$ruleId',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedEventsEventIdRsvpsRouteRoute =
+  AuthenticatedEventsEventIdRsvpsRouteRouteImport.update({
+    id: '/rsvps',
+    path: '/rsvps',
+    getParentRoute: () => AuthenticatedEventsEventIdRouteRoute,
   } as any)
 const AuthenticatedAdminUsersUserIdIndexRoute =
   AuthenticatedAdminUsersUserIdIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedAdminUsersUserIdRoute,
+  } as any)
+const AuthenticatedEventsEventIdRsvpsNewRoute =
+  AuthenticatedEventsEventIdRsvpsNewRouteImport.update({
+    id: '/new',
+    path: '/new',
+    getParentRoute: () => AuthenticatedEventsEventIdRsvpsRouteRoute,
   } as any)
 const AuthenticatedAdminUsersUserIdSessionsRoute =
   AuthenticatedAdminUsersUserIdSessionsRouteImport.update({
@@ -205,18 +213,19 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/error': typeof ErrorRoute
   '/login': typeof LoginRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/profile': typeof AuthenticatedProfileRouteRouteWithChildren
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
-  '/profile': typeof AuthenticatedProfileRouteWithChildren
   '/update': typeof AuthenticatedUpdateRoute
   '/api/interaction': typeof ApiInteractionRoute
   '/api/ws': typeof ApiWsRoute
-  '/events/$eventId': typeof AuthenticatedEventsEventIdRouteWithChildren
+  '/events/$eventId': typeof AuthenticatedEventsEventIdRouteRouteWithChildren
   '/profile/pending': typeof AuthenticatedProfilePendingRoute
   '/profile/sessions': typeof AuthenticatedProfileSessionsRoute
   '/api/auth/discord': typeof ApiAuthDiscordRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/profile/': typeof AuthenticatedProfileIndexRoute
+  '/events/$eventId/rsvps': typeof AuthenticatedEventsEventIdRsvpsRouteRouteWithChildren
   '/admin/event-parsing/$ruleId': typeof AuthenticatedAdminEventParsingRuleIdRoute
   '/admin/event-parsing/create': typeof AuthenticatedAdminEventParsingCreateRoute
   '/admin/users/$userId': typeof AuthenticatedAdminUsersUserIdRouteWithChildren
@@ -226,9 +235,9 @@ export interface FileRoutesByFullPath {
   '/api/scheduler/calendar/trigger': typeof ApiSchedulerCalendarTriggerRoute
   '/admin/event-parsing/': typeof AuthenticatedAdminEventParsingIndexRoute
   '/admin/users/': typeof AuthenticatedAdminUsersIndexRoute
-  '/events/$eventId/': typeof AuthenticatedEventsEventIdIndexRoute
   '/admin/users/$userId/pending': typeof AuthenticatedAdminUsersUserIdPendingRoute
   '/admin/users/$userId/sessions': typeof AuthenticatedAdminUsersUserIdSessionsRoute
+  '/events/$eventId/rsvps/new': typeof AuthenticatedEventsEventIdRsvpsNewRoute
   '/admin/users/$userId/': typeof AuthenticatedAdminUsersUserIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -239,11 +248,13 @@ export interface FileRoutesByTo {
   '/api/interaction': typeof ApiInteractionRoute
   '/api/ws': typeof ApiWsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/events/$eventId': typeof AuthenticatedEventsEventIdRouteRouteWithChildren
   '/profile/pending': typeof AuthenticatedProfilePendingRoute
   '/profile/sessions': typeof AuthenticatedProfileSessionsRoute
   '/api/auth/discord': typeof ApiAuthDiscordRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/profile': typeof AuthenticatedProfileIndexRoute
+  '/events/$eventId/rsvps': typeof AuthenticatedEventsEventIdRsvpsRouteRouteWithChildren
   '/admin/event-parsing/$ruleId': typeof AuthenticatedAdminEventParsingRuleIdRoute
   '/admin/event-parsing/create': typeof AuthenticatedAdminEventParsingCreateRoute
   '/events/$eventId/check-in': typeof AuthenticatedEventsEventIdCheckInRoute
@@ -252,29 +263,30 @@ export interface FileRoutesByTo {
   '/api/scheduler/calendar/trigger': typeof ApiSchedulerCalendarTriggerRoute
   '/admin/event-parsing': typeof AuthenticatedAdminEventParsingIndexRoute
   '/admin/users': typeof AuthenticatedAdminUsersIndexRoute
-  '/events/$eventId': typeof AuthenticatedEventsEventIdIndexRoute
   '/admin/users/$userId/pending': typeof AuthenticatedAdminUsersUserIdPendingRoute
   '/admin/users/$userId/sessions': typeof AuthenticatedAdminUsersUserIdSessionsRoute
+  '/events/$eventId/rsvps/new': typeof AuthenticatedEventsEventIdRsvpsNewRoute
   '/admin/users/$userId': typeof AuthenticatedAdminUsersUserIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/error': typeof ErrorRoute
   '/login': typeof LoginRoute
-  '/_authenticated/admin_': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin_': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/_authenticated/profile': typeof AuthenticatedProfileRouteRouteWithChildren
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
-  '/_authenticated/profile': typeof AuthenticatedProfileRouteWithChildren
   '/_authenticated/update': typeof AuthenticatedUpdateRoute
   '/api/interaction': typeof ApiInteractionRoute
   '/api/ws': typeof ApiWsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
-  '/_authenticated/events/$eventId': typeof AuthenticatedEventsEventIdRouteWithChildren
+  '/_authenticated/events/$eventId': typeof AuthenticatedEventsEventIdRouteRouteWithChildren
   '/_authenticated/profile/pending': typeof AuthenticatedProfilePendingRoute
   '/_authenticated/profile/sessions': typeof AuthenticatedProfileSessionsRoute
   '/api/auth/discord': typeof ApiAuthDiscordRouteWithChildren
   '/_authenticated/admin_/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
+  '/_authenticated/events/$eventId/rsvps': typeof AuthenticatedEventsEventIdRsvpsRouteRouteWithChildren
   '/_authenticated/admin_/event-parsing/$ruleId': typeof AuthenticatedAdminEventParsingRuleIdRoute
   '/_authenticated/admin_/event-parsing/create': typeof AuthenticatedAdminEventParsingCreateRoute
   '/_authenticated/admin_/users/$userId': typeof AuthenticatedAdminUsersUserIdRouteWithChildren
@@ -284,9 +296,9 @@ export interface FileRoutesById {
   '/api/scheduler/calendar/trigger': typeof ApiSchedulerCalendarTriggerRoute
   '/_authenticated/admin_/event-parsing/': typeof AuthenticatedAdminEventParsingIndexRoute
   '/_authenticated/admin_/users/': typeof AuthenticatedAdminUsersIndexRoute
-  '/_authenticated/events/$eventId/': typeof AuthenticatedEventsEventIdIndexRoute
   '/_authenticated/admin_/users/$userId/pending': typeof AuthenticatedAdminUsersUserIdPendingRoute
   '/_authenticated/admin_/users/$userId/sessions': typeof AuthenticatedAdminUsersUserIdSessionsRoute
+  '/_authenticated/events/$eventId/rsvps/new': typeof AuthenticatedEventsEventIdRsvpsNewRoute
   '/_authenticated/admin_/users/$userId/': typeof AuthenticatedAdminUsersUserIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -296,8 +308,8 @@ export interface FileRouteTypes {
     | '/error'
     | '/login'
     | '/admin'
-    | '/leaderboard'
     | '/profile'
+    | '/leaderboard'
     | '/update'
     | '/api/interaction'
     | '/api/ws'
@@ -307,6 +319,7 @@ export interface FileRouteTypes {
     | '/api/auth/discord'
     | '/admin/'
     | '/profile/'
+    | '/events/$eventId/rsvps'
     | '/admin/event-parsing/$ruleId'
     | '/admin/event-parsing/create'
     | '/admin/users/$userId'
@@ -316,9 +329,9 @@ export interface FileRouteTypes {
     | '/api/scheduler/calendar/trigger'
     | '/admin/event-parsing/'
     | '/admin/users/'
-    | '/events/$eventId/'
     | '/admin/users/$userId/pending'
     | '/admin/users/$userId/sessions'
+    | '/events/$eventId/rsvps/new'
     | '/admin/users/$userId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -329,11 +342,13 @@ export interface FileRouteTypes {
     | '/api/interaction'
     | '/api/ws'
     | '/'
+    | '/events/$eventId'
     | '/profile/pending'
     | '/profile/sessions'
     | '/api/auth/discord'
     | '/admin'
     | '/profile'
+    | '/events/$eventId/rsvps'
     | '/admin/event-parsing/$ruleId'
     | '/admin/event-parsing/create'
     | '/events/$eventId/check-in'
@@ -342,9 +357,9 @@ export interface FileRouteTypes {
     | '/api/scheduler/calendar/trigger'
     | '/admin/event-parsing'
     | '/admin/users'
-    | '/events/$eventId'
     | '/admin/users/$userId/pending'
     | '/admin/users/$userId/sessions'
+    | '/events/$eventId/rsvps/new'
     | '/admin/users/$userId'
   id:
     | '__root__'
@@ -352,8 +367,8 @@ export interface FileRouteTypes {
     | '/error'
     | '/login'
     | '/_authenticated/admin_'
-    | '/_authenticated/leaderboard'
     | '/_authenticated/profile'
+    | '/_authenticated/leaderboard'
     | '/_authenticated/update'
     | '/api/interaction'
     | '/api/ws'
@@ -364,6 +379,7 @@ export interface FileRouteTypes {
     | '/api/auth/discord'
     | '/_authenticated/admin_/'
     | '/_authenticated/profile/'
+    | '/_authenticated/events/$eventId/rsvps'
     | '/_authenticated/admin_/event-parsing/$ruleId'
     | '/_authenticated/admin_/event-parsing/create'
     | '/_authenticated/admin_/users/$userId'
@@ -373,14 +389,14 @@ export interface FileRouteTypes {
     | '/api/scheduler/calendar/trigger'
     | '/_authenticated/admin_/event-parsing/'
     | '/_authenticated/admin_/users/'
-    | '/_authenticated/events/$eventId/'
     | '/_authenticated/admin_/users/$userId/pending'
     | '/_authenticated/admin_/users/$userId/sessions'
+    | '/_authenticated/events/$eventId/rsvps/new'
     | '/_authenticated/admin_/users/$userId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ErrorRoute: typeof ErrorRoute
   LoginRoute: typeof LoginRoute
   ApiInteractionRoute: typeof ApiInteractionRoute
@@ -409,7 +425,7 @@ declare module '@tanstack/react-router' {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -417,7 +433,7 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/ws': {
       id: '/api/ws'
@@ -438,42 +454,42 @@ declare module '@tanstack/react-router' {
       path: '/update'
       fullPath: '/update'
       preLoaderRoute: typeof AuthenticatedUpdateRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/leaderboard': {
       id: '/_authenticated/leaderboard'
       path: '/leaderboard'
       fullPath: '/leaderboard'
       preLoaderRoute: typeof AuthenticatedLeaderboardRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin_': {
       id: '/_authenticated/admin_'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/profile/': {
       id: '/_authenticated/profile/'
       path: '/'
       fullPath: '/profile/'
       preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
-      parentRoute: typeof AuthenticatedProfileRoute
+      parentRoute: typeof AuthenticatedProfileRouteRoute
     }
     '/_authenticated/admin_/': {
       id: '/_authenticated/admin_/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/api/auth/discord': {
       id: '/api/auth/discord'
@@ -487,42 +503,35 @@ declare module '@tanstack/react-router' {
       path: '/sessions'
       fullPath: '/profile/sessions'
       preLoaderRoute: typeof AuthenticatedProfileSessionsRouteImport
-      parentRoute: typeof AuthenticatedProfileRoute
+      parentRoute: typeof AuthenticatedProfileRouteRoute
     }
     '/_authenticated/profile/pending': {
       id: '/_authenticated/profile/pending'
       path: '/pending'
       fullPath: '/profile/pending'
       preLoaderRoute: typeof AuthenticatedProfilePendingRouteImport
-      parentRoute: typeof AuthenticatedProfileRoute
+      parentRoute: typeof AuthenticatedProfileRouteRoute
     }
     '/_authenticated/events/$eventId': {
       id: '/_authenticated/events/$eventId'
       path: '/events/$eventId'
       fullPath: '/events/$eventId'
-      preLoaderRoute: typeof AuthenticatedEventsEventIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/events/$eventId/': {
-      id: '/_authenticated/events/$eventId/'
-      path: '/'
-      fullPath: '/events/$eventId/'
-      preLoaderRoute: typeof AuthenticatedEventsEventIdIndexRouteImport
-      parentRoute: typeof AuthenticatedEventsEventIdRoute
+      preLoaderRoute: typeof AuthenticatedEventsEventIdRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin_/users/': {
       id: '/_authenticated/admin_/users/'
       path: '/users'
       fullPath: '/admin/users/'
       preLoaderRoute: typeof AuthenticatedAdminUsersIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin_/event-parsing/': {
       id: '/_authenticated/admin_/event-parsing/'
       path: '/event-parsing'
       fullPath: '/admin/event-parsing/'
       preLoaderRoute: typeof AuthenticatedAdminEventParsingIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/api/scheduler/calendar/trigger': {
       id: '/api/scheduler/calendar/trigger'
@@ -543,35 +552,42 @@ declare module '@tanstack/react-router' {
       path: '/qr-code'
       fullPath: '/events/$eventId/qr-code'
       preLoaderRoute: typeof AuthenticatedEventsEventIdQrCodeRouteImport
-      parentRoute: typeof AuthenticatedEventsEventIdRoute
+      parentRoute: typeof AuthenticatedEventsEventIdRouteRoute
     }
     '/_authenticated/events/$eventId/check-in': {
       id: '/_authenticated/events/$eventId/check-in'
       path: '/check-in'
       fullPath: '/events/$eventId/check-in'
       preLoaderRoute: typeof AuthenticatedEventsEventIdCheckInRouteImport
-      parentRoute: typeof AuthenticatedEventsEventIdRoute
+      parentRoute: typeof AuthenticatedEventsEventIdRouteRoute
     }
     '/_authenticated/admin_/users/$userId': {
       id: '/_authenticated/admin_/users/$userId'
       path: '/users/$userId'
       fullPath: '/admin/users/$userId'
       preLoaderRoute: typeof AuthenticatedAdminUsersUserIdRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin_/event-parsing/create': {
       id: '/_authenticated/admin_/event-parsing/create'
       path: '/event-parsing/create'
       fullPath: '/admin/event-parsing/create'
       preLoaderRoute: typeof AuthenticatedAdminEventParsingCreateRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin_/event-parsing/$ruleId': {
       id: '/_authenticated/admin_/event-parsing/$ruleId'
       path: '/event-parsing/$ruleId'
       fullPath: '/admin/event-parsing/$ruleId'
       preLoaderRoute: typeof AuthenticatedAdminEventParsingRuleIdRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/events/$eventId/rsvps': {
+      id: '/_authenticated/events/$eventId/rsvps'
+      path: '/rsvps'
+      fullPath: '/events/$eventId/rsvps'
+      preLoaderRoute: typeof AuthenticatedEventsEventIdRsvpsRouteRouteImport
+      parentRoute: typeof AuthenticatedEventsEventIdRouteRoute
     }
     '/_authenticated/admin_/users/$userId/': {
       id: '/_authenticated/admin_/users/$userId/'
@@ -579,6 +595,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/users/$userId/'
       preLoaderRoute: typeof AuthenticatedAdminUsersUserIdIndexRouteImport
       parentRoute: typeof AuthenticatedAdminUsersUserIdRoute
+    }
+    '/_authenticated/events/$eventId/rsvps/new': {
+      id: '/_authenticated/events/$eventId/rsvps/new'
+      path: '/new'
+      fullPath: '/events/$eventId/rsvps/new'
+      preLoaderRoute: typeof AuthenticatedEventsEventIdRsvpsNewRouteImport
+      parentRoute: typeof AuthenticatedEventsEventIdRsvpsRouteRoute
     }
     '/_authenticated/admin_/users/$userId/sessions': {
       id: '/_authenticated/admin_/users/$userId/sessions'
@@ -618,7 +641,7 @@ const AuthenticatedAdminUsersUserIdRouteWithChildren =
     AuthenticatedAdminUsersUserIdRouteChildren,
   )
 
-interface AuthenticatedAdminRouteChildren {
+interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminEventParsingRuleIdRoute: typeof AuthenticatedAdminEventParsingRuleIdRoute
   AuthenticatedAdminEventParsingCreateRoute: typeof AuthenticatedAdminEventParsingCreateRoute
@@ -627,78 +650,100 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminUsersIndexRoute: typeof AuthenticatedAdminUsersIndexRoute
 }
 
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
-  AuthenticatedAdminEventParsingRuleIdRoute:
-    AuthenticatedAdminEventParsingRuleIdRoute,
-  AuthenticatedAdminEventParsingCreateRoute:
-    AuthenticatedAdminEventParsingCreateRoute,
-  AuthenticatedAdminUsersUserIdRoute:
-    AuthenticatedAdminUsersUserIdRouteWithChildren,
-  AuthenticatedAdminEventParsingIndexRoute:
-    AuthenticatedAdminEventParsingIndexRoute,
-  AuthenticatedAdminUsersIndexRoute: AuthenticatedAdminUsersIndexRoute,
-}
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+    AuthenticatedAdminEventParsingRuleIdRoute:
+      AuthenticatedAdminEventParsingRuleIdRoute,
+    AuthenticatedAdminEventParsingCreateRoute:
+      AuthenticatedAdminEventParsingCreateRoute,
+    AuthenticatedAdminUsersUserIdRoute:
+      AuthenticatedAdminUsersUserIdRouteWithChildren,
+    AuthenticatedAdminEventParsingIndexRoute:
+      AuthenticatedAdminEventParsingIndexRoute,
+    AuthenticatedAdminUsersIndexRoute: AuthenticatedAdminUsersIndexRoute,
+  }
 
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
 
-interface AuthenticatedProfileRouteChildren {
+interface AuthenticatedProfileRouteRouteChildren {
   AuthenticatedProfilePendingRoute: typeof AuthenticatedProfilePendingRoute
   AuthenticatedProfileSessionsRoute: typeof AuthenticatedProfileSessionsRoute
   AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
 }
 
-const AuthenticatedProfileRouteChildren: AuthenticatedProfileRouteChildren = {
-  AuthenticatedProfilePendingRoute: AuthenticatedProfilePendingRoute,
-  AuthenticatedProfileSessionsRoute: AuthenticatedProfileSessionsRoute,
-  AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
+const AuthenticatedProfileRouteRouteChildren: AuthenticatedProfileRouteRouteChildren =
+  {
+    AuthenticatedProfilePendingRoute: AuthenticatedProfilePendingRoute,
+    AuthenticatedProfileSessionsRoute: AuthenticatedProfileSessionsRoute,
+    AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
+  }
+
+const AuthenticatedProfileRouteRouteWithChildren =
+  AuthenticatedProfileRouteRoute._addFileChildren(
+    AuthenticatedProfileRouteRouteChildren,
+  )
+
+interface AuthenticatedEventsEventIdRsvpsRouteRouteChildren {
+  AuthenticatedEventsEventIdRsvpsNewRoute: typeof AuthenticatedEventsEventIdRsvpsNewRoute
 }
 
-const AuthenticatedProfileRouteWithChildren =
-  AuthenticatedProfileRoute._addFileChildren(AuthenticatedProfileRouteChildren)
+const AuthenticatedEventsEventIdRsvpsRouteRouteChildren: AuthenticatedEventsEventIdRsvpsRouteRouteChildren =
+  {
+    AuthenticatedEventsEventIdRsvpsNewRoute:
+      AuthenticatedEventsEventIdRsvpsNewRoute,
+  }
 
-interface AuthenticatedEventsEventIdRouteChildren {
+const AuthenticatedEventsEventIdRsvpsRouteRouteWithChildren =
+  AuthenticatedEventsEventIdRsvpsRouteRoute._addFileChildren(
+    AuthenticatedEventsEventIdRsvpsRouteRouteChildren,
+  )
+
+interface AuthenticatedEventsEventIdRouteRouteChildren {
+  AuthenticatedEventsEventIdRsvpsRouteRoute: typeof AuthenticatedEventsEventIdRsvpsRouteRouteWithChildren
   AuthenticatedEventsEventIdCheckInRoute: typeof AuthenticatedEventsEventIdCheckInRoute
   AuthenticatedEventsEventIdQrCodeRoute: typeof AuthenticatedEventsEventIdQrCodeRoute
-  AuthenticatedEventsEventIdIndexRoute: typeof AuthenticatedEventsEventIdIndexRoute
 }
 
-const AuthenticatedEventsEventIdRouteChildren: AuthenticatedEventsEventIdRouteChildren =
+const AuthenticatedEventsEventIdRouteRouteChildren: AuthenticatedEventsEventIdRouteRouteChildren =
   {
+    AuthenticatedEventsEventIdRsvpsRouteRoute:
+      AuthenticatedEventsEventIdRsvpsRouteRouteWithChildren,
     AuthenticatedEventsEventIdCheckInRoute:
       AuthenticatedEventsEventIdCheckInRoute,
     AuthenticatedEventsEventIdQrCodeRoute:
       AuthenticatedEventsEventIdQrCodeRoute,
-    AuthenticatedEventsEventIdIndexRoute: AuthenticatedEventsEventIdIndexRoute,
   }
 
-const AuthenticatedEventsEventIdRouteWithChildren =
-  AuthenticatedEventsEventIdRoute._addFileChildren(
-    AuthenticatedEventsEventIdRouteChildren,
+const AuthenticatedEventsEventIdRouteRouteWithChildren =
+  AuthenticatedEventsEventIdRouteRoute._addFileChildren(
+    AuthenticatedEventsEventIdRouteRouteChildren,
   )
 
-interface AuthenticatedRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedProfileRouteRoute: typeof AuthenticatedProfileRouteRouteWithChildren
   AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
-  AuthenticatedProfileRoute: typeof AuthenticatedProfileRouteWithChildren
   AuthenticatedUpdateRoute: typeof AuthenticatedUpdateRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedEventsEventIdRoute: typeof AuthenticatedEventsEventIdRouteWithChildren
+  AuthenticatedEventsEventIdRouteRoute: typeof AuthenticatedEventsEventIdRouteRouteWithChildren
 }
 
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedProfileRouteRoute: AuthenticatedProfileRouteRouteWithChildren,
   AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
-  AuthenticatedProfileRoute: AuthenticatedProfileRouteWithChildren,
   AuthenticatedUpdateRoute: AuthenticatedUpdateRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedEventsEventIdRoute: AuthenticatedEventsEventIdRouteWithChildren,
+  AuthenticatedEventsEventIdRouteRoute:
+    AuthenticatedEventsEventIdRouteRouteWithChildren,
 }
 
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface ApiAuthDiscordRouteChildren {
   ApiAuthDiscordCallbackRoute: typeof ApiAuthDiscordCallbackRoute
@@ -713,7 +758,7 @@ const ApiAuthDiscordRouteWithChildren = ApiAuthDiscordRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ErrorRoute: ErrorRoute,
   LoginRoute: LoginRoute,
   ApiInteractionRoute: ApiInteractionRoute,

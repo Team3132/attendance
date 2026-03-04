@@ -1,5 +1,5 @@
 import { eventQueryOptions } from "@/queries/events.queries";
-import { Route } from "@/routes/_authenticated/events/$eventId";
+import { Route } from "@/routes/_authenticated/events.$eventId/rsvps/route";
 import {
   RSVPStatusSchema,
   RSVPStatusUpdateSchema,

@@ -1,9 +1,11 @@
+import { LinkButton } from "@/components/LinkButton";
+import AdminRSVPListItem from "@/features/events/components/AdminRsvpListItem";
+import MyRsvpStatus from "@/features/events/components/MyRsvpStatus";
+import RSVPListItem from "@/features/events/components/RSVPListItem";
 import useRSVPListInvalidator from "@/hooks/useRSVPListInvalidator";
 import { authQueryOptions } from "@/queries/auth.queries";
 import { eventQueryOptions } from "@/queries/events.queries";
-import { Route } from "@/routes/_authenticated/events/$eventId";
 import {
-  Button,
   List,
   ListItem,
   ListItemAvatar,
@@ -14,14 +16,26 @@ import {
   Typography,
 } from "@mui/material";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
-import { useDisclosure } from "../../../hooks/useDisclosure";
-import AdminRSVPListItem from "./AdminRsvpListItem";
-import MyRsvpStatus from "./MyRsvpStatus";
-import RSVPAddDialog from "./RSVPAddDialog";
-import RSVPListItem from "./RSVPListItem";
 
-export default function RsvpList() {
+export const Route = createFileRoute("/_authenticated/events/$eventId/rsvps")({
+  loader: ({ context: { queryClient }, params: { eventId } }) => {
+    queryClient.prefetchQuery(eventQueryOptions.eventRsvps(eventId));
+    queryClient.prefetchQuery(eventQueryOptions.eventRsvp(eventId));
+  },
+  head: () => ({
+    meta: [
+      {
+        title: "Event - RSVPs",
+      },
+    ],
+  }),
+  component: Component,
+  wrapInSuspense: true,
+});
+
+function Component() {
   return (
     <Paper
       sx={{
@@ -38,6 +52,7 @@ export default function RsvpList() {
         </Suspense>
         <Suspense fallback={null}>
           <RSVPAddButton />
+          <Outlet />
         </Suspense>
       </Stack>
     </Paper>
@@ -103,7 +118,6 @@ function RSVPList() {
 
 function RSVPAddButton() {
   const authStatusQuery = useSuspenseQuery(authQueryOptions.status());
-  const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
 
   if (!authStatusQuery.data.isAdmin) {
     return <></>;
@@ -111,10 +125,16 @@ function RSVPAddButton() {
 
   return (
     <>
-      <Button {...getButtonProps()} variant="contained">
+      <LinkButton
+        from="/events/$eventId"
+        to="rsvps/new"
+        mask={{
+          to: "/events/$eventId/rsvps",
+        }}
+        variant="contained"
+      >
         Create or Edit RSVP
-      </Button>
-      {isOpen ? <RSVPAddDialog {...getDisclosureProps()} /> : null}
+      </LinkButton>
     </>
   );
 }

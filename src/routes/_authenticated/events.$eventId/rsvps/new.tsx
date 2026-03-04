@@ -1,10 +1,12 @@
+import { createFileRoute } from "@tanstack/react-router";
+
 import ControlledAutocomplete from "@/components/ControlledAutocomplete";
 import ControlledDateTime from "@/components/ControlledDateTime";
 import ControlledSelect from "@/components/ControlledSelect";
+import useAddUserRsvp from "@/features/events/hooks/useAddRsvp";
 import { useDisclosure } from "@/hooks/useDisclosure";
 import { eventQueryOptions } from "@/queries/events.queries";
 import { usersQueryOptions } from "@/queries/users.queries";
-import { Route } from "@/routes/_authenticated/events/$eventId/index";
 import { RSVPStatusUpdateSchema } from "@/server/schema/RSVPStatusSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -27,13 +29,17 @@ import {
 } from "react-hook-form";
 import { useDebounceValue } from "usehooks-ts";
 import { z } from "zod";
-import useAddUserRsvp from "../hooks/useAddRsvp";
 
-interface RSVPAddDialogProps {
-  onOpen: () => void;
-  onClose: () => void;
-  open: boolean;
-}
+const searchSchema = z.object({
+  userId: z.string().optional(),
+});
+
+export const Route = createFileRoute(
+  "/_authenticated/events/$eventId/rsvps/new",
+)({
+  validateSearch: searchSchema,
+  component: RouteComponent,
+});
 
 const UserOptionSchema = z.object({
   label: z.string().nonempty(),
@@ -47,10 +53,10 @@ const AddUserRsvpSchema = z.object({
   status: z.union([RSVPStatusUpdateSchema, z.literal("")]).default(""),
 });
 
-export default function RSVPAddDialog(props: RSVPAddDialogProps) {
+function RouteComponent() {
   const { eventId } = Route.useParams();
-  const { onClose, open } = props;
   const queryClient = useQueryClient();
+  const navigate = Route.useNavigate();
 
   const {
     formState: { isSubmitting },
@@ -71,6 +77,12 @@ export default function RSVPAddDialog(props: RSVPAddDialogProps) {
   });
 
   const addUserEventRsvpMutation = useAddUserRsvp();
+
+  const onClose = useCallback(() => {
+    navigate({
+      to: "/events/$eventId/rsvps",
+    });
+  }, [navigate]);
 
   const onSubmit = useCallback(
     () =>
@@ -178,12 +190,7 @@ export default function RSVPAddDialog(props: RSVPAddDialogProps) {
   }, [setValue]);
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      component={"form"}
-      onSubmit={onSubmit}
-    >
+    <Dialog open onClose={onClose} component={"form"} onSubmit={onSubmit}>
       <DialogTitle>Add or Update an RSVP</DialogTitle>
       <DialogContent>
         <DialogContentText>
