@@ -1,5 +1,11 @@
 # frontend
 
+## 6.5.7
+
+### Patch Changes
+
+- [`cf7ca2d`](https://github.com/Team3132/attendance/commit/cf7ca2dc6ea3ba1afaeedca709f6db3f9b9e7dce) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Bump babel plugin imports
+
 ## 6.5.6
 
 ### Patch Changes
