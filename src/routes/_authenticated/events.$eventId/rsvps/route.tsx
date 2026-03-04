@@ -124,17 +124,15 @@ function RSVPAddButton() {
   }
 
   return (
-    <>
-      <LinkButton
-        from="/events/$eventId"
-        to="rsvps/new"
-        mask={{
-          to: "/events/$eventId/rsvps",
-        }}
-        variant="contained"
-      >
-        Create or Edit RSVP
-      </LinkButton>
-    </>
+    <LinkButton
+      from="/events/$eventId"
+      to="rsvps/new"
+      mask={{
+        to: "/events/$eventId/rsvps",
+      }}
+      variant="contained"
+    >
+      Create or Edit RSVP
+    </LinkButton>
   );
 }
