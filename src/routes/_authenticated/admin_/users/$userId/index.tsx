@@ -1,10 +1,9 @@
-import ScancodeListItem from "@/features/user/components/AdminScancodeListItem";
 import NewAdminScancodeListItem from "@/features/user/components/NewAdminScancodeForm";
 import { usersQueryOptions } from "@/queries/users.queries";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Container, List, Paper, Stack, Typography } from "@mui/material";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import AdminScancodeList from "@/features/user/components/AdminScancodeList";
+import { Container, Paper, Stack, Typography } from "@mui/material";
 
 export const Route = createFileRoute("/_authenticated/admin_/users/$userId/")({
   component: Component,
@@ -25,10 +24,6 @@ export const Route = createFileRoute("/_authenticated/admin_/users/$userId/")({
 function Component() {
   const { userId } = Route.useParams();
 
-  const scancodesQuery = useSuspenseQuery(
-    usersQueryOptions.userScancodes(userId),
-  );
-
   return (
     <Container sx={{ my: 2, flex: 1, overflowY: "auto" }}>
       <Stack py={2} gap={2}>
@@ -39,16 +34,8 @@ function Component() {
               Scancodes are used to check in to events. You can generate a new
               scancode at any time.
             </Typography>
-            <List>
-              <NewAdminScancodeListItem userId={userId} />
-              {scancodesQuery.data.map((scancode) => (
-                <ScancodeListItem
-                  scancode={scancode.code}
-                  key={scancode.code}
-                  userId={userId}
-                />
-              ))}
-            </List>
+            <NewAdminScancodeListItem userId={userId} />
+            <AdminScancodeList userId={userId} />
           </Stack>
         </Paper>
       </Stack>

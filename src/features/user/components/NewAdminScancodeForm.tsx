@@ -1,6 +1,6 @@
 import ScanAdornment from "@/components/ScanAdornment";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, ListItem, TextField } from "@mui/material";
+import { Button, Stack, TextField } from "@mui/material";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -69,7 +69,7 @@ export default function NewAdminScancodeListItem(
   );
 
   return (
-    <ListItem component={"form"} onSubmit={onSubmit}>
+    <Stack component={"form"} onSubmit={onSubmit} gap={2}>
       <TextField
         required
         label={"New Scancode"}
@@ -93,6 +93,6 @@ export default function NewAdminScancodeListItem(
       >
         Create
       </Button>
-    </ListItem>
+    </Stack>
   );
 }

@@ -1,7 +1,7 @@
 import ControlledTextField from "@/components/ControlledTextField";
 import ScanAdornment from "@/components/ScanAdornment";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, ListItem } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -58,7 +58,7 @@ export default function NewScancodeListItem() {
   );
 
   return (
-    <ListItem component={"form"} onSubmit={onSubmit}>
+    <Stack component={"form"} onSubmit={onSubmit} gap={2}>
       <ControlledTextField
         required
         label={"New Scancode"}
@@ -81,6 +81,6 @@ export default function NewScancodeListItem() {
       >
         Create
       </Button>
-    </ListItem>
+    </Stack>
   );
 }
