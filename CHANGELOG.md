@@ -1,5 +1,11 @@
 # frontend
 
+## 6.5.9
+
+### Patch Changes
+
+- [`02c79e4`](https://github.com/Team3132/attendance/commit/02c79e47bbd2fc70adf2e41fd60fbc36ec9040fa) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Break down the scancode list
+
 ## 6.5.8
 
 ### Patch Changes
