@@ -200,7 +200,7 @@ jobs:
           cargo install cargo-bump
           cargo-bump bump ${{ fromJson(needs.release.outputs.publishedPackages)[0].version }}
       
-      - uses: tauri-apps/tauri-action@a1b01e690374452a209dd44f6de089dda9003d3d
+      - uses: tauri-apps/tauri-action@97cef2bd32ead607bcc2c6af5b40ce2f25d48e77
         name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
