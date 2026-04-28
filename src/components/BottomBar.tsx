@@ -2,7 +2,7 @@ import type { TabItem } from "@/hooks/useTabIndex";
 import { authQueryOptions } from "@/queries/auth.queries";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { FaHouseLock, FaPeopleGroup, FaRegCalendar } from "react-icons/fa6";
+import { FaHouseLock, FaRegCalendar } from "react-icons/fa6";
 import LinkBottomNavigation from "./LinkBottomNavigation";
 
 const regularItems: TabItem[] = [
@@ -11,11 +11,6 @@ const regularItems: TabItem[] = [
     label: "Events",
     fuzzy: false,
     icon: <FaRegCalendar />,
-  },
-  {
-    to: "/leaderboard",
-    label: "Leaderboard",
-    icon: <FaPeopleGroup />,
   },
 ];
 

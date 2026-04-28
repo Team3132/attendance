@@ -34,10 +34,6 @@ import { DateTime } from "luxon";
 import { match } from "path-to-regexp";
 import { z } from "zod";
 import { discordMiddleware } from "../../middleware/discordMiddleware";
-import {
-  createOutreachEmbedPage,
-  leaderboardCommand,
-} from "./-interaction/commands/leaderboard";
 import { requestRSVPCommand } from "./-interaction/commands/requestRSVP";
 import { syncplzCommand } from "./-interaction/commands/syncplz";
 import {
@@ -114,8 +110,6 @@ export const Route = createFileRoute("/api/interaction")({
               return syncplzCommand(c, interaction.data);
             case "requestrsvp":
               return requestRSVPCommand(c, interaction.data, db);
-            case "leaderboard":
-              return leaderboardCommand(c, interaction.data);
             default:
               logger.debug(`Unknown command: ${interaction.data.name}`);
               return reply({
@@ -442,46 +436,6 @@ export const Route = createFileRoute("/api/interaction")({
                 embeds: generatedMessage.embeds,
                 components: generatedMessage.components,
                 allowed_mentions: generatedMessage.allowed_mentions,
-              });
-            }
-
-            /**
-             * Leaderboard Page Button.
-             */
-            const leaderboardPageFn = match("leaderboard/:toPage/:random");
-            const initialLeaderboardMatch = leaderboardPageFn(customId);
-            if (initialLeaderboardMatch !== false) {
-              const paramObject = await z
-                .object({
-                  toPage: z.coerce.number().int().min(1),
-                })
-                .safeParseAsync(initialLeaderboardMatch.params);
-
-              if (!paramObject.success) {
-                return reply({
-                  content: "Invalid page number.",
-                  flags: MessageFlags.Ephemeral,
-                });
-              }
-
-              const { toPage } = paramObject.data;
-
-              const [leaderboardPageEmbed, leaderboardPageError] = await trytm(
-                createOutreachEmbedPage(c, toPage),
-              );
-              if (leaderboardPageError) {
-                logger.error(
-                  `Error creating outreach embed page: ${leaderboardPageError.message}`,
-                );
-                return reply({
-                  content: "Failed to fetch leaderboard page.",
-                  flags: MessageFlags.Ephemeral,
-                });
-              }
-
-              return updateMessage({
-                embeds: [leaderboardPageEmbed.embed.toJSON()],
-                components: [leaderboardPageEmbed.messageComponent.toJSON()],
               });
             }
           }
