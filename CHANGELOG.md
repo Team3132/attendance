@@ -1,5 +1,11 @@
 # frontend
 
+## 6.6.0
+
+### Minor Changes
+
+- [#3458](https://github.com/Team3132/attendance/pull/3458) [`3c494e4`](https://github.com/Team3132/attendance/commit/3c494e41859df0b6462a26cfee320c7b5d098383) Thanks [@renovate](https://github.com/apps/renovate)! - Update many dependancies
+
 ## 6.5.9
 
 ### Patch Changes
