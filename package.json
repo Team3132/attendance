@@ -53,7 +53,7 @@
     "consola": "3.4.2",
     "croner": "10.0.1",
     "discord-interactions": "4.4.0",
-    "drizzle-orm": "0.45.1",
+    "drizzle-orm": "0.45.2",
     "drizzle-zod": "0.8.3",
     "googleapis": "171.4.0",
     "luxon": "3.7.2",
