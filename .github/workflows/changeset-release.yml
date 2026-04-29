@@ -108,7 +108,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ghcr.io/team3132/attendance
           tags: type=semver,pattern={{version}},value=${{ fromJson(needs.release.outputs.publishedPackages)[0].version }}
