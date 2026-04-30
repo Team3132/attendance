@@ -60,7 +60,7 @@
     "nanoid": "5.1.9",
     "nanoid-dictionary": "5.0.0",
     "path-to-regexp": "8.3.0",
-    "postgres": "3.4.8",
+    "postgres": "3.4.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-error-boundary": "6.1.1",
