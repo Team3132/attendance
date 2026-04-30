@@ -16,7 +16,7 @@
   },
   "main": "server.ts",
   "dependencies": {
-    "@discordjs/builders": "1.13.1",
+    "@discordjs/builders": "1.14.1",
     "@discordjs/core": "2.4.0",
     "@discordjs/rest": "2.6.0",
     "@emotion/react": "11.14.0",
