@@ -15,7 +15,7 @@ type PagedType<T> = {
 interface RenderRowProps<T> {
   row: T;
   style: React.CSSProperties;
-  ref: (node: Element | null | undefined) => void;
+  ref: (node: Element | null) => void;
   index: number;
 }
 
