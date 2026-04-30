@@ -9,7 +9,6 @@ export const customFetchMiddleware = createMiddleware({
 
   const { fetch: tauriFetch } = await import("@tauri-apps/plugin-http");
 
-  // @ts-expect-error Bun fetch override type mismatch
   const customFetch: CustomFetch = async (url, init) => {
     const fetchUrl = `${env.VITE_URL}${url}`; // todo: change this to something that enables a client to configure the domain they're using
 
