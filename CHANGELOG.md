@@ -1,5 +1,13 @@
 # frontend
 
+## 6.7.0
+
+### Minor Changes
+
+- [`077e059`](https://github.com/Team3132/attendance/commit/077e0591f18efa4d5f18b2465a5fb7db25a36242) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Remove leaderboard
+
+  Reccommend moving to something like metabase and connecting it to your database to construct your own queries.
+
 ## 6.6.0
 
 ### Minor Changes
