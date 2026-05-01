@@ -132,7 +132,7 @@ function RouteComponent() {
   );
 
   return (
-    <Stack gap={2} component="form" onSubmit={onSubmit}>
+    <Stack sx={{ gap: 2 }} component="form" onSubmit={onSubmit}>
       <Typography variant="h4">Edit Rule</Typography>
 
       <ControlledTextField control={control} name="name" label="Name" />

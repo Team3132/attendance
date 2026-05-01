@@ -167,7 +167,7 @@ function RouteComponent() {
 
   return (
     <>
-      <Stack component={"form"} gap={2} onSubmit={onSubmit}>
+      <Stack component={"form"} sx={{ gap: 2 }} onSubmit={onSubmit}>
         <Typography variant="h4">Create Event Parsing Rule</Typography>
         <Typography>
           Create a rule that matches a regex and posts a reminder in a channel

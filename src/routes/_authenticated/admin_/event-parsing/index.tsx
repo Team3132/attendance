@@ -52,7 +52,7 @@ function RouteComponent() {
           <ParsingRuleListItem key={rule.id} rule={rule} />
         ))}
       </List>
-      <Stack direction={"row"} gap={2}>
+      <Stack direction={"row"} sx={{ gap: 2 }}>
         <SyncEventsButton />
         <DeployDiscordCommandsButton />
         <LinkButton to="/admin/event-parsing/create">Create Rule</LinkButton>

@@ -84,7 +84,7 @@ function Component() {
   );
 
   return (
-    <Stack gap={2} sx={{ height: "100%", display: "flex" }}>
+    <Stack sx={{ height: "100%", display: "flex", gap: 2 }}>
       <TextField
         onChange={(e) => setSearch(e.target.value)}
         defaultValue={query}

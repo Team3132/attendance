@@ -60,7 +60,13 @@ export const Route = createFileRoute("/_authenticated/")({
 
 function Component() {
   return (
-    <Stack gap={2} height={"100%"} flexDirection={"column"}>
+    <Stack
+      sx={{
+        gap: 2,
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       <EventFromSelector />
       <Suspense fallback={<EventListSkeleton />}>
         <EventList />

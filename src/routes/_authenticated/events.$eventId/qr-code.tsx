@@ -49,7 +49,7 @@ function Component() {
   const { eventId } = Route.useParams();
 
   return (
-    <Stack gap={2}>
+    <Stack sx={{ gap: 2 }}>
       <Paper
         sx={{
           p: 2,

@@ -138,8 +138,10 @@ export default function RSVPActionsButton(props: RSVPActionsButtonProps) {
         id="basic-menu"
         anchorEl={anchorEl.current}
         {...getDisclosureProps()}
-        MenuListProps={{
-          "aria-labelledby": `${menuId}-button`,
+        slotProps={{
+          list: {
+            "aria-labelledby": `${menuId}-button`,
+          },
         }}
       >
         <MenuItem onClick={checkinUserNow}>Check-in now</MenuItem>

@@ -67,13 +67,13 @@ function Component() {
   );
 
   return (
-    <Stack gap={2}>
+    <Stack sx={{ gap: 2 }}>
       <Paper sx={{ p: 2 }} component={"form"} onSubmit={onSubmit}>
-        <Stack gap={2}>
-          <Typography variant="h4" textAlign={"center"}>
+        <Stack sx={{ gap: 2 }}>
+          <Typography variant="h4" sx={{ textAlign: "center" }}>
             Event Check In
           </Typography>
-          <Typography variant="body1" textAlign={"center"}>
+          <Typography variant="body1" sx={{ textAlign: "center" }}>
             Check in for the event using the code displayed at the event by
             entering it below. Or, use your phone's camera to scan the QR code.
           </Typography>

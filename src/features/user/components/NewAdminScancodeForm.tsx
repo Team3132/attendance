@@ -69,7 +69,7 @@ export default function NewAdminScancodeListItem(
   );
 
   return (
-    <Stack component={"form"} onSubmit={onSubmit} gap={2}>
+    <Stack component={"form"} onSubmit={onSubmit} sx={{ gap: 2 }}>
       <TextField
         required
         label={"New Scancode"}

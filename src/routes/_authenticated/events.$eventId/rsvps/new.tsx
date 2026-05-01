@@ -197,13 +197,23 @@ function RouteComponent() {
           This will create or update an RSVP for the event for the selected
           user.
         </DialogContentText>
-        <Stack gap={2} mt={2}>
+        <Stack
+          sx={{
+            mt: 2,
+            gap: 2,
+          }}
+        >
           <SearchingAutocomplete
             control={control}
             name="userOption"
             handleSelect={handleSelect}
           />
-          <Stack direction="row" gap={2}>
+          <Stack
+            direction="row"
+            sx={{
+              gap: 2,
+            }}
+          >
             <ControlledDateTime
               control={control}
               name="checkinTime"
@@ -217,7 +227,13 @@ function RouteComponent() {
           </Stack>
 
           {/* Time Presets */}
-          <Stack direction="row" gap={2} justifyContent={"space-evenly"}>
+          <Stack
+            direction="row"
+            sx={{
+              gap: 2,
+              justifyContent: "space-evenly",
+            }}
+          >
             {/* Set start and end to event */}
             <Button onClick={eventTimesHandler}>Set to Event</Button>
             {/* Set start to now */}

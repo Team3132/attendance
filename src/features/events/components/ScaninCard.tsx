@@ -79,8 +79,8 @@ export default function ScaninCard(props: ScaninCardProps) {
 
   return (
     <PaddedPaper>
-      <Stack gap={2} component={"form"} onSubmit={onSubmit}>
-        <Typography variant="h5" textAlign={"center"}>
+      <Stack component={"form"} onSubmit={onSubmit} sx={{ gap: 2 }}>
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
           Scan In
         </Typography>
 
