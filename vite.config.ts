@@ -3,7 +3,6 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
-import viteTsconfigPaths from "vite-tsconfig-paths";
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -47,6 +46,9 @@ export default defineConfig({
       ignored: ["**/src-tauri/**"],
     },
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
   envPrefix: ["VITE_", "TAURI_ENV_"],
   plugins: [
     visualizer({
@@ -54,7 +56,6 @@ export default defineConfig({
       filename: "stats.html",
       template: "treemap",
     }),
-    viteTsconfigPaths(),
     tanstackStart({
       spa: {
         enabled: true,
