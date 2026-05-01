@@ -1,5 +1,11 @@
 # frontend
 
+## 6.7.1
+
+### Patch Changes
+
+- [`63a23b7`](https://github.com/Team3132/attendance/commit/63a23b7b211394e5b48afa86022c44df4ccaca22) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Fix known broken
+
 ## 6.7.0
 
 ### Minor Changes
