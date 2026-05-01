@@ -1,12 +1,8 @@
+import babel from "@rolldown/plugin-babel";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
+import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
-import viteTsconfigPaths from "vite-tsconfig-paths";
-
-const ReactCompilerConfig = {
-  target: "19",
-};
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -50,6 +46,9 @@ export default defineConfig({
       ignored: ["**/src-tauri/**"],
     },
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
   envPrefix: ["VITE_", "TAURI_ENV_"],
   plugins: [
     visualizer({
@@ -57,7 +56,6 @@ export default defineConfig({
       filename: "stats.html",
       template: "treemap",
     }),
-    viteTsconfigPaths(),
     tanstackStart({
       spa: {
         enabled: true,
@@ -68,42 +66,42 @@ export default defineConfig({
     }),
     viteReact({
       jsxImportSource: "@emotion/react",
-      babel: {
-        plugins: [
-          ["babel-plugin-react-compiler", ReactCompilerConfig],
-          [
-            "@emotion/babel-plugin",
-            {
-              importMap: {
-                "@mui/system": {
-                  styled: {
-                    canonicalImport: ["@emotion/styled", "default"],
-                    styledBaseImport: ["@mui/system", "styled"],
-                  },
+    }),
+    babel({
+      presets: [reactCompilerPreset()],
+      plugins: [
+        [
+          "@emotion/babel-plugin",
+          {
+            importMap: {
+              "@mui/system": {
+                styled: {
+                  canonicalImport: ["@emotion/styled", "default"],
+                  styledBaseImport: ["@mui/system", "styled"],
                 },
-                "@mui/material": {
-                  styled: {
-                    canonicalImport: ["@emotion/styled", "default"],
-                    styledBaseImport: ["@mui/material", "styled"],
-                  },
+              },
+              "@mui/material": {
+                styled: {
+                  canonicalImport: ["@emotion/styled", "default"],
+                  styledBaseImport: ["@mui/material", "styled"],
                 },
-                "@mui/material/styles": {
-                  styled: {
-                    canonicalImport: ["@emotion/styled", "default"],
-                    styledBaseImport: ["@mui/material/styles", "styled"],
-                  },
+              },
+              "@mui/material/styles": {
+                styled: {
+                  canonicalImport: ["@emotion/styled", "default"],
+                  styledBaseImport: ["@mui/material/styles", "styled"],
                 },
               },
             },
-          ],
-          [
-            "babel-plugin-direct-import",
-            {
-              modules: ["@mui/system", "@mui/material"],
-            },
-          ],
+          },
         ],
-      },
+        [
+          "babel-plugin-direct-import",
+          {
+            modules: ["@mui/system", "@mui/material"],
+          },
+        ],
+      ],
     }),
   ],
 });
