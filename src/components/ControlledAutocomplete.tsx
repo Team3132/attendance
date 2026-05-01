@@ -115,8 +115,10 @@ export default function ControlledAutocomplete<
           error={!!fieldState.error}
           disabled={disabled}
           required={required}
-          InputLabelProps={{
-            shrink: true,
+          slotProps={{
+            inputLabel: {
+              shrink: true,
+            },
           }}
         />
       )}

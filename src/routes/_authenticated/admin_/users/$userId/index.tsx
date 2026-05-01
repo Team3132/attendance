@@ -26,9 +26,9 @@ function Component() {
 
   return (
     <Container sx={{ my: 2, flex: 1, overflowY: "auto" }}>
-      <Stack py={2} gap={2}>
+      <Stack sx={{ py: 2, gap: 2 }}>
         <Paper sx={{ p: 2 }}>
-          <Stack gap={2}>
+          <Stack sx={{ gap: 2 }}>
             <Typography variant="h4">Scancodes</Typography>
             <Typography variant="body1">
               Scancodes are used to check in to events. You can generate a new

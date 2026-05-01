@@ -121,10 +121,10 @@ export default function UnknownCodeModal(props: UnknownCodeModalProps) {
           To register a new code, please select a user to associate it with.
         </DialogContentText>
         <Stack
-          gap={2}
           sx={{
             mt: 2,
             justifyItems: "start",
+            gap: 2,
           }}
         >
           <SearchingAutocomplete control={control} name="userOption" />

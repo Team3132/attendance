@@ -42,15 +42,35 @@ function Component() {
           justifySelf: "center",
         }}
       >
-        <Stack gap={2}>
-          <Typography variant="h4" textAlign={"center"}>
+        <Stack
+          sx={{
+            gap: 2,
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              textAlign: "center",
+            }}
+          >
             Login
           </Typography>
-          <Typography variant="body1" textAlign={"center"}>
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+            }}
+          >
             In order to use the attendance system, you must login with the same
             discord account that you use for the team Discord server.
           </Typography>
-          <Stack gap={2} direction="row" justifyContent="center">
+          <Stack
+            direction="row"
+            sx={{
+              gap: 2,
+              justifyContent: "center",
+            }}
+          >
             <Suspense fallback={null}>
               {isTauri ? <TauriLoginButton /> : <LoginButton />}
               {/* <LoginButton /> */}

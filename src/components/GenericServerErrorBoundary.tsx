@@ -22,13 +22,15 @@ export default function GenericServerErrorBoundary(
 
         return (
           <Stack
-            spacing={2}
-            textAlign={"center"}
-            justifyContent={"center"}
-            height={"100%"}
+            sx={{
+              gap: 2,
+              textAlign: "center",
+              justifyContent: "center",
+              height: "100%",
+            }}
           >
             <Typography variant="h5">{errorMessage}</Typography>
-            <Stack spacing={2} direction="row" justifyContent={"center"}>
+            <Stack direction="row" sx={{ justifyContent: "center", gap: 2 }}>
               <Button
                 onClick={handleBack}
                 variant="contained"

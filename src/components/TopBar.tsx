@@ -61,8 +61,10 @@ function ProfileMenu() {
         id={`${menuId}-menu`}
         anchorEl={anchorEl.current}
         {...getDisclosureProps()}
-        MenuListProps={{
-          "aria-labelledby": `${menuId}-button`,
+        slotProps={{
+          list: {
+            "aria-labelledby": `${menuId}-button`,
+          },
         }}
       >
         <LinkMenuItem to="/profile">Scancodes</LinkMenuItem>
