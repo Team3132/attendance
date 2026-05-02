@@ -90,7 +90,7 @@
     "babel-plugin-direct-import": "1.0.0",
     "babel-plugin-react-compiler": "1.0.0",
     "drizzle-kit": "0.31.10",
-    "knip": "6.9.0",
+    "knip": "6.10.0",
     "lefthook": "2.1.6",
     "rollup-plugin-visualizer": "7.0.1",
     "typescript": "6.0.3",
