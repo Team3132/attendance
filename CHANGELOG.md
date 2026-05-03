@@ -1,5 +1,11 @@
 # frontend
 
+## 6.7.2
+
+### Patch Changes
+
+- [`a9c6615`](https://github.com/Team3132/attendance/commit/a9c6615bde4f16bca1876a9a61c8e69f5dcc3891) Thanks [@sebasptsch](https://github.com/sebasptsch)! - Update Tauri Deps
+
 ## 6.7.1
 
 ### Patch Changes
