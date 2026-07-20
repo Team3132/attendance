@@ -46,7 +46,7 @@
     "@tauri-apps/plugin-opener": "2.5.4",
     "@tauri-apps/plugin-store": "2.4.3",
     "@tauri-apps/plugin-updater": "2.10.1",
-    "@types/node": "25.6.0",
+    "@types/node": "25.9.5",
     "@zag-js/react": "1.40.0",
     "@zag-js/toast": "1.40.0",
     "arctic": "3.7.0",
