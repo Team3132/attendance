@@ -29,7 +29,7 @@
         "@tanstack/react-virtual": "3.13.26",
         "@tanstack/table-core": "8.21.3",
         "@tanstack/zod-adapter": "1.166.9",
-        "@tauri-apps/plugin-barcode-scanner": "2.4.5",
+        "@tauri-apps/plugin-barcode-scanner": "2.4.6",
         "@tauri-apps/plugin-deep-link": "2.4.9",
         "@tauri-apps/plugin-http": "2.5.9",
         "@tauri-apps/plugin-opener": "2.5.4",
@@ -583,7 +583,7 @@
 
     "@tauri-apps/cli-win32-x64-msvc": ["@tauri-apps/cli-win32-x64-msvc@2.11.4", "", { "os": "win32", "cpu": "x64" }, "sha512-+vDiqBIU5dMISg/wNvX3sF+ZHfgJGJ5T0AcO+EHNXV9GGAG+P5fzodlDXD3QdKCRgZxMoCm5PPvj3BqLNjBthw=="],
 
-    "@tauri-apps/plugin-barcode-scanner": ["@tauri-apps/plugin-barcode-scanner@2.4.5", "", { "dependencies": { "@tauri-apps/api": "^2.11.0" } }, "sha512-sIPRYEfxww8/y8skZ2LcAp/h5bwvlHkQiq+3w6QEl+2BHs13xnpn7hP+pv4fkBs8DyDfpUbOBIYS5YBwP7x1QQ=="],
+    "@tauri-apps/plugin-barcode-scanner": ["@tauri-apps/plugin-barcode-scanner@2.4.6", "", { "dependencies": { "@tauri-apps/api": "^2.11.0" } }, "sha512-9B2u+Sma002p1MzH5kGYFg8dPVNVbIHpyye6PY1A9AOeR7IOUAXS02VaUpnyXqJkUUnF/s2g7MgaB7wY9Ko6cg=="],
 
     "@tauri-apps/plugin-deep-link": ["@tauri-apps/plugin-deep-link@2.4.9", "", { "dependencies": { "@tauri-apps/api": "^2.11.0" } }, "sha512-u0SKOUHnJ1wqeqXsDFq2+kASCBj9xxbG0g9XZWPy9SOmU4wXtp6b/wiYpm6oH6/5fBTQsLqnLhIvqLBRpgHJlA=="],
 
