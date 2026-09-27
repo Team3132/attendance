@@ -30,7 +30,7 @@
         "@tanstack/table-core": "8.21.3",
         "@tanstack/zod-adapter": "1.166.9",
         "@tauri-apps/plugin-barcode-scanner": "2.4.6",
-        "@tauri-apps/plugin-deep-link": "2.4.9",
+        "@tauri-apps/plugin-deep-link": "2.5.0",
         "@tauri-apps/plugin-http": "2.5.9",
         "@tauri-apps/plugin-opener": "2.5.4",
         "@tauri-apps/plugin-store": "2.4.4",
@@ -585,7 +585,7 @@
 
     "@tauri-apps/plugin-barcode-scanner": ["@tauri-apps/plugin-barcode-scanner@2.4.6", "", { "dependencies": { "@tauri-apps/api": "^2.11.0" } }, "sha512-9B2u+Sma002p1MzH5kGYFg8dPVNVbIHpyye6PY1A9AOeR7IOUAXS02VaUpnyXqJkUUnF/s2g7MgaB7wY9Ko6cg=="],
 
-    "@tauri-apps/plugin-deep-link": ["@tauri-apps/plugin-deep-link@2.4.9", "", { "dependencies": { "@tauri-apps/api": "^2.11.0" } }, "sha512-u0SKOUHnJ1wqeqXsDFq2+kASCBj9xxbG0g9XZWPy9SOmU4wXtp6b/wiYpm6oH6/5fBTQsLqnLhIvqLBRpgHJlA=="],
+    "@tauri-apps/plugin-deep-link": ["@tauri-apps/plugin-deep-link@2.5.0", "", { "dependencies": { "@tauri-apps/api": "^2.12.0" } }, "sha512-Heu/hQSeWIQ6K/XML3Rj7An99eofHHaFoc6njMMIa+XIznvgiDtGgv6OIBWQ0HwHwmHf1QK/ysA/2dL3lEKMeA=="],
 
     "@tauri-apps/plugin-http": ["@tauri-apps/plugin-http@2.5.9", "", { "dependencies": { "@tauri-apps/api": "^2.11.0" } }, "sha512-lCiY0+vs4HvIUSvZrBs8TC3TiCB0MOPRmiUjTq4prW7SlcJE2jdLeT6KBsJrT9Tlplufl7W1pY6SFAO3gCWxDA=="],
 
@@ -1356,6 +1356,8 @@
     "@tanstack/start-plugin-core/source-map": ["source-map@0.7.6", "", {}, "sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ=="],
 
     "@tanstack/start-plugin-core/zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
+
+    "@tauri-apps/plugin-deep-link/@tauri-apps/api": ["@tauri-apps/api@2.12.0", "", {}, "sha512-fUSxFX8VABYe9W9K5ROdEaKVkNUFRcMSRofjruvaxztXA+I0XnQHcYHF8m/a6iExRUxsUf0HsFWhPBuH9IgzJw=="],
 
     "@types/babel__core/@babel/parser": ["@babel/parser@7.29.3", "", { "dependencies": { "@babel/types": "^7.29.0" }, "bin": "./bin/babel-parser.js" }, "sha512-b3ctpQwp+PROvU/cttc4OYl4MzfJUWy6FZg+PMXfzmt/+39iHVF0sDfqay8TQM3JA2EUOyKcFZt75jWriQijsA=="],
 
