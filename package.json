@@ -89,7 +89,7 @@
     "@vitejs/plugin-react": "6.0.5",
     "babel-plugin-direct-import": "1.0.0",
     "babel-plugin-react-compiler": "1.0.0",
-    "drizzle-kit": "0.31.10",
+    "drizzle-kit": "0.31.11",
     "knip": "6.11.0",
     "lefthook": "2.1.12",
     "rollup-plugin-visualizer": "7.0.1",
