@@ -12,11 +12,11 @@ jobs:
     name: Lint and Type Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@v6.1.0
+      - uses: oven-sh/setup-bun@v2.2.0
         name: Setup Bun
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v6.5.0
         with:
           node-version-file: .nvmrc
       - name: Install Dependancies
